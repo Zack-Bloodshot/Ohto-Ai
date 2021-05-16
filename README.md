@@ -9,9 +9,11 @@
 
 <h2 align="centre">⚙️ Set Up ⚙️</h3>
 
-<h3 align="centre"> Heroku </h4>
+<h3 align="centre"> Heroku </h3>
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://www.github.com/Zack-Bloodshot/Ohto-Ai)
+Before deploying, if you know python fork the repo and modify the bot according to yourself and then deploy, if you directly deploy it will show the name Ohto and ohto gifs, so better do it! 
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?)
 
 Get STRING_NAME from here:
 
@@ -24,7 +26,7 @@ Get STRING_NAME from here:
    - `API_HASH` :  Give API_HASH of your Alternate Telegram Account.
    - `STRING_NAME` :  Make a string session from [here](https://repl.it/@subinps/getStringName)
    - `BOT_TOKEN` :  Make a Bot from [@Botfather](https://t.me/botfather) and fill it's bot token.
-   - `SUDO_USERS` :  Fill Userid of yhe users whom you want to be able to control the bot. You can add multiple id by giving a space in b/w each id.
+   - `SUDO_USERS` :  Fill Userid of the users whom you want to be able to control the bot. You can add multiple id by giving a space in b/w each id.
 
 ## Credits
 
@@ -32,4 +34,4 @@ Get STRING_NAME from here:
 - [Roj](https://github.com/rojserbest): main developer
 - [Marvin](https://github.com/BlackStoneReborn): bug reporter
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
-- [Original Repo](https://github.com/suprojects/CallsMusic)
+- [Original Repo](https://github.com/TheVaders/vc_bot)
