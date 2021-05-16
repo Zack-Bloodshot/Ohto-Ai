@@ -11,9 +11,9 @@
 
 <h3 align="centre"> Heroku </h3>
 
-Before deploying, if you know python fork the repo and modify the bot according to yourself and then deploy, if you directly deploy it will show the name Ohto and ohto gifs, so better do it! 
+Before deploying, if you know python fork the repo and modify the bot according to yourself and then deploy, if you directly deploy it will show the name Ohto and ohto gifs, and then connect yout repo to the bot you deployed, better do it! 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Zack-Bloodshot/Ohto-Ai)
 
 Get STRING_NAME from here:
 
