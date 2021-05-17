@@ -6,8 +6,22 @@ from handlers.play import quu
 import callsmusic
 
 from config import BOT_NAME as BN
+from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
+
+Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
+@errors 
+@authorized_users_only
+async def auth(client: Client, message: Message):
+  user = await message.reply_to_message.from_user
+  if user.id in SUDO_USERS:
+    await message.reply(f"{user.first_name} is already authorized")
+    return
+  SUDO_USERS.append(user.id)
+  await message.reply(f"{user.first_name} was authorized to use my commands")
+  
+
 
 
 @Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
