@@ -14,7 +14,9 @@ from helpers.decorators import errors, authorized_users_only
 @errors 
 @authorized_users_only
 async def auth(client: Client, message: Message):
-  user = await message.reply_to_message.from_user
+  user = message.reply_to_message.from_user
+  if not user:
+    return await message.reply("Reply to a user baka!")
   if user.id in SUDO_USERS:
     await message.reply(f"{user.first_name} is already authorized")
     return
