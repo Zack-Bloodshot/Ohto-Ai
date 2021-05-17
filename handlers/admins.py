@@ -10,7 +10,7 @@ from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
 
-Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
+@Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
 @errors 
 @authorized_users_only
 async def auth(client: Client, message: Message):
