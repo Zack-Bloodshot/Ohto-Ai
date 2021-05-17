@@ -11,7 +11,7 @@ from config import SUDO_USERS
 @errors 
 @authorized_users_only
 async def auth(client: Client, message: Message):
-  user = await message.from_user
+  user = await message.reply_to_message.from_user
   if user.id in SUDO_USERS:
     await message.reply(f"{user.first_name} is already authorized")
     return
