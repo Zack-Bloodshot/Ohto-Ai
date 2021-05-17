@@ -22,8 +22,7 @@ async def start(_, message: Message):
                     InlineKeyboardButton(
                         "Add me to your group", url="https://t.me/OhtoAiPlaysBot?startgroup=True"
                     )],[
-                    InlineKeyboardButton(text = "My Owner", url = "https://t.me/DontKnowWhoRU")
-                ]
+                    InlineKeyboardButton(text = "My Owner", url = "https://t.me/DontKnowWhoRU"), InlineKeyboardButton(text = "Repo", url = "https://github.com/Zack-Bloodshot/Ohto-Ai")]
             ]
         )
     )
