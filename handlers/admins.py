@@ -92,7 +92,7 @@ async def skip(_, message: Message):
             callsmusic.pytgcalls.leave_group_call(message.chat.id)
         else:
             try:
-              nex_song = "**Now playin: " + why[1] + "**"
+              nex_song = "**Now playin: " + why[0] + "**"
             except IndexError:
               nex_song = " "
             callsmusic.pytgcalls.change_stream(
