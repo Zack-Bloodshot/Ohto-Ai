@@ -7,6 +7,8 @@ from helpers.admins import get_administrators
  
 auth = []
 
+#please make a channel and use its id besides my one duh 
+
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
 async def aauth(client: Client, message: Message):
   if not message.from_user.id in SUDO_USERS: 
