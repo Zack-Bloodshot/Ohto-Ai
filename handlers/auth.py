@@ -3,12 +3,15 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from helpers.filters import command, other_filters
 from config import SUDO_USERS 
+from helpers.admins import get_administrators
  
 auth = []
 
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
 async def aauth(client: Client, message: Message):
   if not message.from_user.id in SUDO_USERS: 
+    return 
+  if not message.from_user.id in auth:
     return 
   user = message.reply_to_message.from_user
   if not user:
@@ -23,6 +26,8 @@ async def aauth(client: Client, message: Message):
 @Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters) 
 async def rauth(client: Client, message: Message):
   if not message.from_user.id in SUDO_USERS:
+    return 
+  if not message.from_user.id in auth:
     return 
   reply = message.reply_to_message
   if not reply:
@@ -40,11 +45,13 @@ async def rauth(client: Client, message: Message):
 async def lauth(client: Client, message: Message):
   if not message.from_user.id in SUDO_USERS: 
     return 
+  if not message.from_user.id in auth:
+    return 
   text = ""
   count = 0
   for user in auth:
     count += 1
-    text += count 
+    text += f"{count}: "
     text += f"`{user}`\n"
   await message.reply(text)
  
@@ -52,10 +59,16 @@ async def lauth(client: Client, message: Message):
 async def rload(client: Client, message: Message):
   if not message.from_user.id in SUDO_USERS:
     return 
+  if not message.from_user.id in auth:
+    return 
   count = 0
-  async for msg in client.search(-1001418899867):
+  admemes = await get_administrators(message.chat)
+  for ad in admemes:
+    auth.append(ad)
+  async for msg in client.search_messages(-1001418899867):
     if count == 1:
       break 
     auth = msg.text
     count = 1 
+  await client.send_message(-1001418899867, auth)
   await message.reply("Reloaded Successfully ^_^!!! ")
