@@ -59,12 +59,12 @@ async def lauth(client: Client, message: Message):
 @authorized_users_only 
 async def rload(client: Client, message: Message):
   count = 0
-  for msg in app.search(-1001418899867):
+  async for msg in client.search(-1001418899867):
     if count == 1:
       break 
     auth = msg.text
     count = 1 
-  message.reply("Reloaded Successfully ^_^!!! ")
+  await message.reply("Reloaded Successfully ^_^!!! ")
 
 @Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
 @errors
