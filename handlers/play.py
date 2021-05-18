@@ -83,6 +83,7 @@ async def helpgrp(_, message: Message):
 @authorized_users_only
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
+    req_user = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})
     url = get_url(message)
     me = message.text.split(None, 1)
     if len(me) >= 2:
@@ -100,7 +101,8 @@ async def play(_, message: Message):
             )
 
         file_name = get_file_name(audio)
-        text += "**Playin[...](https://telegra.ph/file/49fd302f1c0738257728c.mp4)**"
+        text += "*Playin[...](https://telegra.ph/file/49fd302f1c0738257728c.mp4)"
+        text += req_user + "*"
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🦄", callback_data = "na")]])
         await m.edit("Processing...")
         ruuta += "Tg file..., name unknown"
@@ -131,6 +133,7 @@ async def play(_, message: Message):
         text += f"\n**Duration: {str(duration)}**"
         channel = results[0]["channel"]
         text += f"\n**Artist: {channel}**"
+        text += f"\n**{req_user}**"
         file_path = await converter.convert(youtube.download(url))
     elif not args == "None":
         results = []
@@ -159,6 +162,7 @@ async def play(_, message: Message):
         await m.edit("Processing...just-a-sec..")
         channel = results[0]["channel"]
         text += f"\n**Artist: {channel}**"
+        text += f"\n**{req_user}**"
     else:
       await m.delete()
       markup = InlineKeyboardMarkup([[(InlineKeyboardButton("Search And Play ", switch_inline_query_current_chat = ""))]])
