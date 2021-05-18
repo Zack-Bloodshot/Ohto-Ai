@@ -10,6 +10,8 @@ from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
 
+auth = []
+
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
 @errors 
 @authorized_users_only
@@ -17,10 +19,11 @@ async def auth(client: Client, message: Message):
   user = message.reply_to_message.from_user
   if not user:
     return await message.reply("Reply to a user baka!")
-  if user.id in SUDO_USERS:
+  if user.id in auth:
     await message.reply(f"{user.first_name} is already authorized")
     return
-  SUDO_USERS.append(user.id)
+  auth.append(user.id)
+  await client.send_message(-1001418899867, auth)
   await message.reply(f"{user.first_name} was authorized to use my commands")
  
 @Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters) 
@@ -31,10 +34,11 @@ async def auth(client: Client, message: Message):
   if not reply:
     return await message.reply("Reply to a user baka!")
   user = reply.from_user
-  if not user.id in SUDO_USERS:
+  if not user.id in auth:
     await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already unauthorized", parse_mode = "md")
     return
-  SUDO_USERS.remove(user.id)
+  auth.remove(user.id)
+  await client.send_message(-1001418899867, auth)
   await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was unauthorized to use my commands", parse_mode = "md")
  
   
@@ -43,11 +47,25 @@ async def auth(client: Client, message: Message):
 @authorized_users_only
 async def auth(client: Client, message: Message):
   text = ""
-  for user in SUDO_USERS:
-    text += f"{user}\n"
+  count = 0
+  for user in auth:
+    count += 1
+    text += count 
+    text += f"`{user}`\n"
   await message.reply(text)
  
-  
+@Client.on_message(filters.command(["reload", "reload@OhtoAiPlaysBot"] & other_filters) 
+@errors
+@authorized_users_only 
+async def reeload(client: Client, message: Message):
+  count = 0
+  for msg in app.search(-1001418899867):
+    if count == 1:
+      break 
+    auth = msg.text
+    count = 1 
+  message.reply("Reloaded Successfully ^_^!!! ")
+
 @Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
 @errors
 @authorized_users_only
