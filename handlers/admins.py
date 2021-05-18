@@ -15,7 +15,7 @@ auth = []
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
 @errors 
 @authorized_users_only
-async def auth(client: Client, message: Message):
+async def aauth(client: Client, message: Message):
   user = message.reply_to_message.from_user
   if not user:
     return await message.reply("Reply to a user baka!")
@@ -29,7 +29,7 @@ async def auth(client: Client, message: Message):
 @Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters) 
 @errors 
 @authorized_users_only
-async def auth(client: Client, message: Message):
+async def rauth(client: Client, message: Message):
   reply = message.reply_to_message
   if not reply:
     return await message.reply("Reply to a user baka!")
@@ -45,7 +45,7 @@ async def auth(client: Client, message: Message):
 @Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]) & other_filters) 
 @errors 
 @authorized_users_only
-async def auth(client: Client, message: Message):
+async def lauth(client: Client, message: Message):
   text = ""
   count = 0
   for user in auth:
@@ -57,7 +57,7 @@ async def auth(client: Client, message: Message):
 @Client.on_message(filters.command(["reload", "reload@OhtoAiPlaysBot"] & other_filters) 
 @errors
 @authorized_users_only 
-async def reeload(client: Client, message: Message):
+async def rload(client: Client, message: Message):
   count = 0
   for msg in app.search(-1001418899867):
     if count == 1:
