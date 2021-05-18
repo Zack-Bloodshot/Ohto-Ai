@@ -17,11 +17,11 @@ async def aauth(client: Client, message: Message):
   if not user:
     return await message.reply("Reply to a user baka!")
   if user.id in auth:
-    await message.reply(f"{user.first_name} is already authorized")
+    await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already authorized", parse_mode = "md")
     return
   auth.append(user.id)
   await client.send_message(-1001418899867, auth)
-  await message.reply(f"{user.first_name} was authorized to use my commands")
+  await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was authorized to use my commands", parse_mode = "md")
  
 @Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters) 
 async def rauth(client: Client, message: Message):
