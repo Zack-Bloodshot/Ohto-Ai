@@ -2,13 +2,13 @@ from asyncio.queues import QueueEmpty
 
 from pyrogram import Client, filters 
 from pyrogram.types import Message
-from handlers.play import quu 
 import callsmusic
 
 from config import BOT_NAME as BN
 from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
+from handlers.play import quu 
 
 auth = []
 
