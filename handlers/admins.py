@@ -38,13 +38,13 @@ async def auth(client: Client, message: Message):
   await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was unauthorized to use my commands", parse_mode = "md")
  
   
-@Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
+@Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]) & other_filters) 
 @errors 
 @authorized_users_only
 async def auth(client: Client, message: Message):
   text = ""
   for user in SUDO_USERS:
-    text += f"[{user.first_name}](tg://user?id={user})\n"
+    text += f"{user}\n"
   await message.reply(text)
  
   
