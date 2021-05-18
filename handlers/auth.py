@@ -2,11 +2,14 @@
 from pyrogram import Client, filters 
 from pyrogram.types import Message
 from helpers.filters import command, other_filters
+from config import SUDO_USERS 
  
 auth = []
 
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
 async def aauth(client: Client, message: Message):
+  if not message.from_user.id in SUDO_USERS: 
+    return 
   user = message.reply_to_message.from_user
   if not user:
     return await message.reply("Reply to a user baka!")
@@ -18,9 +21,9 @@ async def aauth(client: Client, message: Message):
   await message.reply(f"{user.first_name} was authorized to use my commands")
  
 @Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters) 
-@errors 
-@authorized_users_only
 async def rauth(client: Client, message: Message):
+  if not message.from_user.id in SUDO_USERS:
+    return 
   reply = message.reply_to_message
   if not reply:
     return await message.reply("Reply to a user baka!")
@@ -34,9 +37,9 @@ async def rauth(client: Client, message: Message):
  
   
 @Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]) & other_filters) 
-@errors 
-@authorized_users_only
 async def lauth(client: Client, message: Message):
+  if not message.from_user.id in SUDO_USERS: 
+    return 
   text = ""
   count = 0
   for user in auth:
@@ -46,9 +49,9 @@ async def lauth(client: Client, message: Message):
   await message.reply(text)
  
 @Client.on_message(filters.command(["reload", "reload@OhtoAiPlaysBot"]) & other_filters) 
-@errors
-@authorized_users_only 
 async def rload(client: Client, message: Message):
+  if not message.from_user.id in SUDO_USERS:
+    return 
   count = 0
   async for msg in client.search(-1001418899867):
     if count == 1:
