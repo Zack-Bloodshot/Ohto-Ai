@@ -22,10 +22,32 @@ async def auth(client: Client, message: Message):
     return
   SUDO_USERS.append(user.id)
   await message.reply(f"{user.first_name} was authorized to use my commands")
+ 
+@Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters) 
+@errors 
+@authorized_users_only
+async def auth(client: Client, message: Message):
+  reply = message.reply_to_message
+  if not reply:
+    return await message.reply("Reply to a user baka!")
+  user = reply.from_user
+  if not user.id in SUDO_USERS:
+    await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already unauthorized", parse_mode = "md")
+    return
+  SUDO_USERS.remove(user.id)
+  await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was unauthorized to use my commands", parse_mode = "md")
+ 
   
-
-
-
+@Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
+@errors 
+@authorized_users_only
+async def auth(client: Client, message: Message):
+  text = ""
+  for user in SUDO_USERS:
+    text += f"[{user.first_name}](tg://user?id={user})\n"
+  await message.reply(text)
+ 
+  
 @Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
 @errors
 @authorized_users_only
