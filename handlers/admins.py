@@ -54,7 +54,7 @@ async def lauth(client: Client, message: Message):
     text += f"`{user}`\n"
   await message.reply(text)
  
-@Client.on_message(filters.command(["reload", "reload@OhtoAiPlaysBot"] & other_filters) 
+@Client.on_message(filters.command(["reload", "reload@OhtoAiPlaysBot"]) & other_filters) 
 @errors
 @authorized_users_only 
 async def rload(client: Client, message: Message):
