@@ -2,13 +2,10 @@
 from pyrogram import Client, filters 
 from pyrogram.types import Message
 from helpers.filters import command, other_filters
-from helpers.decorators import errors, authorized_users_only
  
 auth = []
 
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters) 
-@errors 
-@authorized_users_only
 async def aauth(client: Client, message: Message):
   user = message.reply_to_message.from_user
   if not user:
