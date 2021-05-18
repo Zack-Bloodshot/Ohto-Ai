@@ -63,12 +63,12 @@ async def rload(client: Client, message: Message):
     return 
   count = 0
   admemes = await get_administrators(message.chat)
-  for ad in admemes:
-    auth.append(ad)
   async for msg in client.search_messages(-1001418899867):
     if count == 1:
       break 
     auth = msg.text
     count = 1 
+  for ad in admemes:
+    auth.append(ad)
   await client.send_message(-1001418899867, auth)
   await message.reply("Reloaded Successfully ^_^!!! ")
