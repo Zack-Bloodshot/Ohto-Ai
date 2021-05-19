@@ -83,7 +83,7 @@ async def helpgrp(_, message: Message):
 @authorized_users_only
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
-    req_user = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})
+    req_user = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
     url = get_url(message)
     me = message.text.split(None, 1)
     if len(me) >= 2:
