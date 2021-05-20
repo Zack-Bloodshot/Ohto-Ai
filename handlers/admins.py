@@ -46,11 +46,7 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
-    try:
-      quu[message.chat.id] = [] 
-    except KeyError:
-      why = []
-    if message.chat.id not in callsmusic.pytgcalls.active_calls:
+    if not sql.is_on(message.chat.id):
         await message.reply_text("Nuthin Streamin'....... ig so.. ", parse_mode = "md")
     else:
         try:
@@ -66,19 +62,21 @@ async def stop(_, message: Message):
 @errors
 @authorized_users_only
 async def skip(_, message: Message):
+    if not sql.is_on(message.chat.id):
+      return await message.reply("Baka nothing to skip..!")
     if callsmusic.queues.is_empty(message.chat.id):
       try:
         callsmusic.pytgcalls.leave_group_call(message.chat.id) 
       except Exception:
         pass
-      await message.reply_text("Ahh baka, Nuthin even playin..... ",parse_mode = "md")
+      await message.reply_text("Ahh baka, Nuthin to skip..... ",parse_mode = "md")
     else:
         callsmusic.queues.task_done(message.chat.id)
         try:
           why = quu[message.chat.id]
+          why.pop(0)
         except KeyError:
           why = []
-        why.pop(0)
         if callsmusic.queues.is_empty(message.chat.id):
             nex_song = " "
             callsmusic.pytgcalls.leave_group_call(message.chat.id)
