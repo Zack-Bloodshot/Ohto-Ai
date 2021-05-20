@@ -7,3 +7,4 @@ youtube_search_python
 youtube-dl
 youtube_search
 requests
+sqlalchemy==1.3.23
