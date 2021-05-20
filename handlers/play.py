@@ -1,5 +1,5 @@
 from os import path
-
+from sql import calls as sql
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
@@ -169,7 +169,7 @@ async def play(_, message: Message):
       await message.reply_text(f"You did not give me anything to play!", reply_markup = markup)
       return 
 
-    if message.chat.id in callsmusic.pytgcalls.active_calls:
+    if sql.is_true(chat.id):
         global quu
         quu[message.chat.id].append(ruuta)
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
@@ -177,6 +177,7 @@ async def play(_, message: Message):
         await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
+        sql.set_on(chat.id)
         await m.delete()
         quu[message.chat.id] = [ruuta]
         await message.reply_text(text, reply_markup = markup, parse_mode = "md")
