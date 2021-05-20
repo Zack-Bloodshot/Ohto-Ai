@@ -1,5 +1,5 @@
 from asyncio.queues import QueueEmpty
-
+from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message
 import callsmusic
@@ -14,6 +14,8 @@ from handlers.play import quu
 @errors
 @authorized_users_only
 async def pause(_, message: Message):
+    if not sql.is_on(message.chat.id):
+      return await message.reply("Nuthin playin.... ")
     if (
             message.chat.id not in callsmusic.pytgcalls.active_calls
     ) or (
