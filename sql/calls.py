@@ -1,7 +1,7 @@
 #calls sql.. 
 import threading
 
-from SaitamaRobot.modules.sql import BASE, SESSION
+from sql import BASE, SESSION
 from sqlalchemy import Column, String
 
 
