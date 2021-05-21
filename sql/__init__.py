@@ -5,9 +5,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 import psycopg2
 import os
 
-DB_URI = os.environ('DATABASE_URL')
+DB_URI = os.environ.get('DATABASE_URL')
 
-conn = psycopg2.connect(DB_URI, sslmode = True)
+#conn = psycopg2.connect(DB_URI, sslmode = True)
 
 def start() -> scoped_session:
     engine = create_engine(DB_URI, client_encoding="utf8")
