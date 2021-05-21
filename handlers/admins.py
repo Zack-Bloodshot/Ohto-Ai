@@ -14,7 +14,7 @@ from handlers.play import quu
 @errors
 @authorized_users_only
 async def pause(_, message: Message):
-    if not sql.is_on(message.chat.id):
+    if not sql.is_call(message.chat.id):
       return await message.reply("Nuthin playin.... ")
     if (
             message.chat.id not in callsmusic.pytgcalls.active_calls
@@ -46,7 +46,7 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
-    if not sql.is_on(message.chat.id):
+    if not sql.is_call(message.chat.id):
         await message.reply_text("Nuthin Streamin'....... ig so.. ", parse_mode = "md")
     else:
         try:
@@ -55,6 +55,7 @@ async def stop(_, message: Message):
             pass
 
         callsmusic.pytgcalls.leave_group_call(message.chat.id)
+        sql.set_off(message.chat.id)
         await message.reply_text("Ahh, its peaceful now, Byee[....](https://telegra.ph/file/d3a1925bb934891796b25.mp4)", parse_mode = "md")
 
 
@@ -62,11 +63,12 @@ async def stop(_, message: Message):
 @errors
 @authorized_users_only
 async def skip(_, message: Message):
-    if not sql.is_on(message.chat.id):
+    if not sql.is_call(message.chat.id):
       return await message.reply("Baka nothing to skip..!")
     if callsmusic.queues.is_empty(message.chat.id):
       try:
         callsmusic.pytgcalls.leave_group_call(message.chat.id) 
+        sql.set_off(message.chat.id)
       except Exception:
         pass
       await message.reply_text("Ahh baka, Nuthin to skip..... ",parse_mode = "md")
@@ -80,6 +82,7 @@ async def skip(_, message: Message):
         if callsmusic.queues.is_empty(message.chat.id):
             nex_song = " "
             callsmusic.pytgcalls.leave_group_call(message.chat.id)
+            sql.set_off(message.chat.id)
         else:
             try:
               nex_song = "**Now playin: " + why[0] + "**"
