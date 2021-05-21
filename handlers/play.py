@@ -169,7 +169,7 @@ async def play(_, message: Message):
       await message.reply_text(f"You did not give me anything to play!", reply_markup = markup)
       return 
 
-    if sql.is_call(chat.id):
+    if sql.is_call(message.chat.id):
         global quu
         quu[message.chat.id].append(ruuta)
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
@@ -177,7 +177,7 @@ async def play(_, message: Message):
         await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
-        sql.set_on(chat.id)
+        sql.set_on(message.chat.id)
         await m.delete()
         quu[message.chat.id] = [ruuta]
         await message.reply_text(text, reply_markup = markup, parse_mode = "md")
