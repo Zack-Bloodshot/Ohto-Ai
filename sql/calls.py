@@ -5,7 +5,7 @@ from sql import BASE, SESSION
 from sqlalchemy import Column, String
 
 
-class PyKall(BASE):
+class Pykall(BASE):
     __tablename__ = "vconchats"
     chat_id = Column(String(14), primary_key=True)
 
