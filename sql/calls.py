@@ -35,7 +35,7 @@ def set_on(chat_id):
       vc_on = Pykall(str(chat_id))
     else:
       pass
-    SESSION.add(lewdfalse)
+    SESSION.add(vc_on)
     SESSION.commit()
 
 def set_off(chat_id):
