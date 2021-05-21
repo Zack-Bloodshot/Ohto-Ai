@@ -7,6 +7,8 @@ import os
 
 DB_URI = os.environ('DATABASE_URL')
 
+conn = psycopg3.connect(DB_URI, sslmode = True)
+
 def start() -> scoped_session:
     engine = create_engine(DB_URI, client_encoding="utf8")
     BASE.metadata.bind = engine
