@@ -169,7 +169,7 @@ async def play(_, message: Message):
       await message.reply_text(f"You did not give me anything to play!", reply_markup = markup)
       return 
 
-    if sql.is_true(chat.id):
+    if sql.is_call(chat.id):
         global quu
         quu[message.chat.id].append(ruuta)
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
