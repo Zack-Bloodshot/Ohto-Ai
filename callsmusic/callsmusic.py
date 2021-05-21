@@ -3,6 +3,7 @@ from pytgcalls import PyTgCalls
 from handlers.play import quu
 import config
 from . import queues
+from sql import calls as sql
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 pytgcalls = PyTgCalls(client)
@@ -14,8 +15,13 @@ def on_stream_end(chat_id: int) -> None:
 
     if queues.is_empty(chat_id):
         pytgcalls.leave_group_call(chat_id)
+        sql.set_off(message.chat.id)
+        
     else:
-        quu[chat_id].pop(0)
+        try:
+          quu[chat_id].pop(0)
+        except Exception: 
+          pass
         pytgcalls.change_stream(
             chat_id, queues.get(chat_id)["file_path"]
         )
