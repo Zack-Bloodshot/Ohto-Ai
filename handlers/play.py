@@ -13,6 +13,7 @@ from config import BOT_NAME as bn, DURATION_LIMIT
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.decorators import authorized_users_only
+from helpers.decorators import authorized_users_only2
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
 from config import API_ID, API_HASH, BOT_TOKEN
@@ -35,7 +36,7 @@ async def selfwelc(client: Client, message: Message):
 
 @Client.on_message(filters.command(["queue", "queue@OhtoAiPlaysBot"]) & other_filters)
 @errors
-@authorized_users_only
+@authorized_users_only2
 async def que(client: Client, message: Message):
   global quu
   try:
@@ -89,7 +90,7 @@ async def helpgrp(_, message: Message):
 
 @Client.on_message(filters.command(["play", "play@OhtoAiPlaysBot"]) & other_filters)
 @errors
-@authorized_users_only
+@authorized_users_only2
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
     req_user = f"Requested By: [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n"
