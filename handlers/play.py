@@ -24,7 +24,7 @@ quu = {}
 async def selfwelc(client: Client, message: Message):
   for user in message.new_chat_members:
     if user.id == 1704447681:
-      await message.reply_text("Yayy, a new adventure, cant wait to share with Abhi-sama!!")
+      await message.reply_text("Sorry, You can't possibly use me as i am made to work in @Anime_Discussion_Cafe, look up my repo, in pm, fork it, and try to deploy me kek!")
       chat_name = message.chat.title
       get = await client.get_chat(message.chat.id)
       if get.username:
@@ -67,6 +67,15 @@ async def que(client: Client, message: Message):
     await m.delete()
     await message.reply_text("Please go and contact me in pm kek!", reply_markup = markup)
 
+@Client.on_message(filters.command(["now", "now@OhtoAiPlaysBot"]) & other_filters)
+@errors
+async def showplay(_, message: Message):
+  global quu
+  if not sql.is_call(message.chat.id):
+    return await message.reply("Nuthin playin...")
+  song = quu[message.chat.id][0]
+  await message.reply(f"**Now playin in {message.chat.title}\n{song}**")
+  
 @Client.on_message(filters.command(["start", "start@OhtoAiPlaysBot"]) & other_filters)
 @errors
 async def startgrp(_, message: Message):
