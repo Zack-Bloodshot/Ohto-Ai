@@ -14,7 +14,10 @@ from handlers.play import quu
 @errors 
 @authorized_users_only 
 async def aut(_, message: Message):
-  reply = message.reply_to_message.from_user
+  re = message.reply_to_message
+  if not re: 
+    return await message.reply("Reply to a user... to authorize...")
+  reply = re.from_user
   if ats.is_approved(message.chat.id, reply.id):
     return await message.reply(f"**[{reply.first_name}](tg://user?id={reply.id}) is already authorizedd in {message.chat.title}**")
   else: 
@@ -25,7 +28,10 @@ async def aut(_, message: Message):
 @errors 
 @authorized_users_only 
 async def remauth(_, message: Message): 
-  user = message.reply_to_message.from_user
+  reply = message.reply_to_message
+  if not reply: 
+    return await message.reply("Reply To a user to unauthorize.. ")
+  user = reply.from_user
   if ats.is_approved(message.chat.id, user.id):
     ats.disapprove(message.chat.id, user.id)
     await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was removed from authorized list..")
