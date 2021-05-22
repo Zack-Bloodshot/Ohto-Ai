@@ -19,7 +19,7 @@ async def aut(_, message: Message):
     return await message.reply(f"**[{reply.first_name}](tg://user?id={reply.id}) is already authorizedd in {message.chat.title}**")
   else: 
     ats.approve(message.chat.id, reply.id)
-    return await message.reply(f"[{reply.first_name}](tg://user?id={reply.id}) was authorized in {message.chat.title})
+    return await message.reply(f"[{reply.first_name}](tg://user?id={reply.id}) was authorized in {message.chat.title}")
 
 @Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]), & other_filters)
 @errors 
@@ -28,9 +28,9 @@ async def remauth(_, message: Message):
   user = message.reply_to_message.from_user
   if ats.is_approved(message.chat.id, user.id):
     ats.disapprove(message.chat.id, user.id)
-    await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was removed from authorized list..)
+    await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was removed from authorized list..")
   else: 
-    return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..)
+    return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..")
 
 @Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]), & other_filters)
 @errors 
