@@ -43,5 +43,7 @@ def authorized_users_only2(func: Callable) -> Callable:
         for administrator in administrators:
             if administrator == message.from_user.id:
                 return await func(client, message)
+            else: 
+              return await message.reply("Sorry..! only admemes and authorized memes!")
 
     return decorator
