@@ -48,7 +48,7 @@ async def listauth(_, message: Message):
     approved_users = ats.list_approved(message.chat.id)
     count = 0
     for i in approved_users:
-        member = chat.get_member(int(i.user_id))
+        member = await chat.get_member(int(i.user_id))
         count += 1
         msg += f"{count}) `{i.user_id}`: {member.user['first_name']}\n"
     if msg.endswith("approved.\n"):
