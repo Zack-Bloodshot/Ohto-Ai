@@ -32,6 +32,25 @@ async def remauth(_, message: Message):
   else: 
     return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..)
 
+@Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]), & other_filters)
+@errors 
+@authorized_users_only 
+async def listauth(_, message: Message):
+    chat_title = message.chat.title
+    chat = message.chat
+    msg = "The following users are authorized...\n"
+    approved_users = sql.list_approved(message.chat_id)
+    count = 0
+    for i in approved_users:
+        member = chat.get_member(int(i.user_id))
+        count += 1
+        msg += f"{count}) `{i.user_id}`: {member.user['first_name']}\n"
+    if msg.endswith("approved.\n"):
+        message.reply_text(f"No users are approved in {chat_title}.")
+        return ""
+    else:
+      await message.reply(msg)
+
 @Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
 @errors
 @authorized_users_only
