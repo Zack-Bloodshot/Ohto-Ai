@@ -45,14 +45,14 @@ async def listauth(_, message: Message):
     chat_title = message.chat.title
     chat = message.chat
     msg = "The following users are authorized...\n"
-    approved_users = ats.list_approved(message.chat_id)
+    approved_users = ats.list_approved(message.chat.id)
     count = 0
     for i in approved_users:
         member = chat.get_member(int(i.user_id))
         count += 1
         msg += f"{count}) `{i.user_id}`: {member.user['first_name']}\n"
     if msg.endswith("approved.\n"):
-        message.reply_text(f"No users are approved in {chat_title}.")
+        message.reply(f"No users are approved in {chat_title}.")
         return ""
     else:
       await message.reply(msg)
