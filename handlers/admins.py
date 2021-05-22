@@ -32,7 +32,7 @@ async def remauth(_, message: Message):
   else: 
     return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..")
 
-@Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]), & other_filters)
+@Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]) & other_filters)
 @errors 
 @authorized_users_only 
 async def listauth(_, message: Message):
