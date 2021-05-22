@@ -4,7 +4,6 @@ from pyrogram import Client
 from pyrogram.types import Message
 from helpers.admins import get_administrators
 from config import SUDO_USERS
-from handlers.auth import auth
 from sql import auth as sql
 
 
