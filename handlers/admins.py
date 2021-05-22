@@ -21,7 +21,7 @@ async def aut(_, message: Message):
     ats.approve(message.chat.id, reply.id)
     return await message.reply(f"[{reply.first_name}](tg://user?id={reply.id}) was authorized in {message.chat.title}")
 
-@Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]), & other_filters)
+@Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters)
 @errors 
 @authorized_users_only 
 async def remauth(_, message: Message): 
