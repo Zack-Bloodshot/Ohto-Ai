@@ -3,12 +3,23 @@ from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message
 import callsmusic
-
+from sql import auth as ats
 from config import BOT_NAME as BN
 from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
 from handlers.play import quu 
+
+@Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters)
+@errors 
+@authorized_users_only 
+async def aut(_, message: Message):
+  reply = message.reply_to_message.from_user
+  if ats.is_approved(message.chat.id, reply.id):
+    return await message.reply(f"**[{reply.first_name}](tg://user?id={reply.id}) is already authorizedd in {message.chat.title}**")
+  else: 
+    ats.approve(message.chat.id, reply.id)
+    return await message.reply(f"[{reply.first_name}](tg://user?id={reply.id}) was authorized in {message.chat.title})
 
 @Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
 @errors
