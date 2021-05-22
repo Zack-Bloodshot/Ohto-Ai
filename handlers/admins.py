@@ -45,7 +45,7 @@ async def listauth(_, message: Message):
     chat_title = message.chat.title
     chat = message.chat
     msg = "The following users are authorized...\n"
-    approved_users = sql.list_approved(message.chat_id)
+    approved_users = ats.list_approved(message.chat_id)
     count = 0
     for i in approved_users:
         member = chat.get_member(int(i.user_id))
