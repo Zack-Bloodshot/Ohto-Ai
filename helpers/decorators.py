@@ -5,7 +5,7 @@ from pyrogram.types import Message
 from helpers.admins import get_administrators
 from config import SUDO_USERS
 from handlers.auth import auth
-
+from sql import auth as sql
 
 
 def errors(func: Callable) -> Callable:
@@ -25,8 +25,20 @@ def authorized_users_only(func: Callable) -> Callable:
     async def decorator(client: Client, message: Message):
         if message.from_user.id in SUDO_USERS:
             return await func(client, message)
-        if message.from_user.id in auth:
+
+        for administrator in administrators:
+            if administrator == message.from_user.id:
+                return await func(client, message)
+
+    return decorator
+
+def authorized_users_only2(func: Callable) -> Callable:
+    async def decorator(client: Client, message: Message):
+        if message.from_user.id in SUDO_USERS:
             return await func(client, message)
+        if sql.is_approved(message.chat.id, message.from_user.id):
+            return await func(client, message)
+
         administrators = await get_administrators(message.chat)
 
         for administrator in administrators:
