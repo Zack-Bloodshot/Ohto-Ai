@@ -7,7 +7,7 @@ from sql import auth as ats
 from config import BOT_NAME as BN
 from config import SUDO_USERS
 from helpers.filters import command, other_filters
-from helpers.decorators import errors, authorized_users_only
+from helpers.decorators import errors, authorized_users_only, authorized_users_only2
 from handlers.play import quu 
 
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters)
