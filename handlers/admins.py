@@ -108,7 +108,7 @@ async def stop(_, message: Message):
 
 @Client.on_message(filters.command(["skip", "skip@OhtoAiPlaysBot"]) & other_filters)
 @errors
-@authorized_users_only
+@authorized_users_only2
 async def skip(_, message: Message):
     if not sql.is_call(message.chat.id):
       return await message.reply("Baka nothing to skip..!")
