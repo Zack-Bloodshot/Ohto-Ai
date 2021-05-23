@@ -41,14 +41,13 @@ async def remauth(_, message: Message):
 @Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]) & other_filters)
 @errors 
 @authorized_users_only 
-async def listauth(client: Client, message: Message):
+async def listauth(chat: Chat, message: Message):
     chat_title = message.chat.title
-    chat = message.chat
     msg = "The following users are authorized...\n"
     approved_users = ats.list_approved(message.chat.id)
     count = 0
     for i in approved_users:
-        member = await client.get_chat_member(chat_id = message.chat.id, user_id=int(i.user_id))
+        member = await chat.get_member(int(i.user_id))
         count += 1
         msg += f"{count}) `{i.user_id}`: {member.first_name}\n"
     if msg.endswith("approved.\n"):
