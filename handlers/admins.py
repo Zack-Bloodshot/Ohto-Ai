@@ -1,7 +1,7 @@
 from asyncio.queues import QueueEmpty
 from sql import calls as sql
 from pyrogram import Client, filters 
-from pyrogram.types import Message
+from pyrogram.types import Message, Chat
 import callsmusic
 from sql import auth as ats
 from config import BOT_NAME as BN
