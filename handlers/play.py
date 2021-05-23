@@ -186,7 +186,7 @@ async def play(_, message: Message):
         await m.delete()
         await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
     else:
-        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
+        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
         sql.set_on(message.chat.id)
         await m.delete()
         quu[message.chat.id] = [ruuta]
