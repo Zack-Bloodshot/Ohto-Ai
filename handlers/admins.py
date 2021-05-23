@@ -23,6 +23,10 @@ async def res(_, message: Message):
     callsmusic.queues.clear(message.chat.id)
   except QueueEmpty:
     pass
+  try: 
+    callsmusic.pytgcalls.leave_group_call(message.chat.id) 
+  except Exception:
+    pass
   await message.reply("**Reset successful..!!!")
 
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters)
