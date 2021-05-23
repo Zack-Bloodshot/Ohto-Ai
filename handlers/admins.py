@@ -1,7 +1,7 @@
 from asyncio.queues import QueueEmpty
 from sql import calls as sql
 from pyrogram import Client, filters 
-from pyrogram.types import Message, Chat
+from pyrogram.types import Message, Chat, User
 import callsmusic
 from sql import auth as ats
 from config import BOT_NAME as BN
@@ -38,7 +38,7 @@ async def remauth(_, message: Message):
   else: 
     return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..")
 
-async def meme_get(chat: Chat, user): 
+async def meme_get(chat: Chat, user: User): 
   return await chat.get_member(user)
 
 
