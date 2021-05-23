@@ -11,6 +11,20 @@ from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only, authorized_users_only2
 from handlers.play import quu 
 
+@Client.on_message(filters.command(["reset", "restart@OhtoAiPlaysBot"]) & other_filters)
+@errors 
+@authorized_users_only2
+async def res(_, message: Message): 
+  if sql.is_call(message.chat.id):
+    sql.set_off(message.chat.id)
+  if len(quu) > 0:
+    quu = []
+  try:
+    callsmusic.queues.clear(message.chat.id)
+  except QueueEmpty:
+    pass
+  await message.reply("**Reset successful..!!!")
+
 @Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters)
 @errors 
 @authorized_users_only 
