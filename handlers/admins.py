@@ -15,10 +15,10 @@ from handlers.play import quu
 @errors 
 @authorized_users_only2
 async def res(_, message: Message): 
+  global quu
   if sql.is_call(message.chat.id):
     sql.set_off(message.chat.id)
-  if len(quu) > 0:
-    quu = []
+  quu[message.chat.id] = []
   try:
     callsmusic.queues.clear(message.chat.id)
   except QueueEmpty:
@@ -127,7 +127,7 @@ async def stop(_, message: Message):
             callsmusic.queues.clear(message.chat.id)
         except QueueEmpty:
             pass
-
+        quu[message.chat.id] = []
         callsmusic.pytgcalls.leave_group_call(message.chat.id)
         sql.set_off(message.chat.id)
         await message.reply_text("Ahh, its peaceful now, Byee[....](https://telegra.ph/file/d3a1925bb934891796b25.mp4)", parse_mode = "md")
