@@ -3,6 +3,7 @@ from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message, Chat, User
 import callsmusic
+from pyrogram.errors import PeerIdInvalid
 from sql import auth as ats
 from config import BOT_NAME as BN
 from config import SUDO_USERS
@@ -50,9 +51,15 @@ async def listauth(chat: Chat, message: Message):
     approved_users = ats.list_approved(message.chat.id)
     count = 0
     for i in approved_users:
+      try: 
         member = await meme_get(message.chat, int(i.user_id))
-        count += 1
-        msg += f"{count}) `{i.user_id}`: {member.first_name}\n"
+      except PeerIdInvalid: 
+        member = " "
+      count += 1
+      if not member == " ": 
+        msg += f"{count}) `{i.user_id}`: {member.user['first_name']}\n"
+      else:
+        msg += f"{count}) `{i.user_id}`: (I didn't see him yet in pm )
     if msg.endswith("approved.\n"):
         message.reply(f"No users are approved in {chat_title}.")
         return ""
