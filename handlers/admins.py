@@ -38,7 +38,7 @@ async def remauth(_, message: Message):
   else: 
     return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..")
 
-async def meme_get(chat: Chat, user: User): 
+async def meme_get(chat: Chat, user): 
   return await chat.get_member(user)
 
 
@@ -50,7 +50,7 @@ async def listauth(chat: Chat, message: Message):
     approved_users = ats.list_approved(message.chat.id)
     count = 0
     for i in approved_users:
-        member = await meme_get(message.chat.id, int(i.user_id))
+        member = await meme_get(message.chat, int(i.user_id))
         count += 1
         msg += f"{count}) `{i.user_id}`: {member.first_name}\n"
     if msg.endswith("approved.\n"):
