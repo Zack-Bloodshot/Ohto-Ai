@@ -123,10 +123,11 @@ async def stop(_, message: Message):
     if not sql.is_call(message.chat.id):
         await message.reply_text("Nuthin Streamin'....... ig so.. ", parse_mode = "md")
     else:
-        try:
-            callsmusic.queues.clear(message.chat.id)
-        except QueueEmpty:
-            pass
+        while True: 
+          try: 
+            callsmusic.queues.task_done(message.chat.id)
+          except ValueError: 
+            break
         quu[message.chat.id] = []
         callsmusic.pytgcalls.leave_group_call(message.chat.id)
         sql.set_off(message.chat.id)
