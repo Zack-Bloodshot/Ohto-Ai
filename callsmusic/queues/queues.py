@@ -30,13 +30,10 @@ def task_done(chat_id: int):
         try:
             queues[chat_id].task_done()
         except ValueError:
-            raise ValueError 
+            pass
 
 def clear(chat_id: int):
-    if chat_id in queues:
-        if queues[chat_id].empty():
-            raise Empty
-        else:
-            queues[chat_id].queue = []
-    else:
-        raise Empty
+    for _ in range(q.qsize()):
+      q.get_nowait()
+      q.task_done()
+                       
