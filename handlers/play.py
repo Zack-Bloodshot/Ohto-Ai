@@ -3,7 +3,6 @@ from sql import calls as sql
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
-from callsmusic.queues.queues import qget
 import callsmusic
 import converter
 from pyrogram.errors import PeerIdInvalid
