@@ -1,6 +1,6 @@
 from asyncio import Queue, QueueEmpty as Empty
 from typing import Dict, Union
-
+from sql import calls as sql
 queues: Dict[int, Queue] = {}
 
 
@@ -9,13 +9,6 @@ async def put(chat_id: int, **kwargs) -> int:
         queues[chat_id] = Queue()
     await queues[chat_id].put({**kwargs})
     return queues[chat_id].qsize()
-
-def qget(chat_id: int) -> Union[Dict[str, str], None]:
-    if chat_id in queues:
-        try:
-            return queues[chat_id]
-        except Empty:
-            return "None" 
 
 def get(chat_id: int) -> Union[Dict[str, str], None]:
     if chat_id in queues:
@@ -45,4 +38,5 @@ def clear(chat_id: int):
             raise Empty
         else:
             queues[chat_id].queue = []
+    queues[chat_id].queue = []
     raise Empty
