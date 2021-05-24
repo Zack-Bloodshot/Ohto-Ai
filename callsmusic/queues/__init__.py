@@ -1,1 +1,1 @@
-from .queues import put, get, is_empty, task_done, clear, qget
+from .queues import put, get, is_empty, task_done, clear
