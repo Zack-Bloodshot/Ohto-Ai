@@ -1,6 +1,7 @@
 from asyncio import Queue, QueueEmpty as Empty
 from typing import Dict, Union
 from sql import calls as sql
+
 queues: Dict[int, Queue] = {}
 
 
