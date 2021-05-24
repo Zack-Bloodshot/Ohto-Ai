@@ -123,11 +123,10 @@ async def stop(_, message: Message):
     if not sql.is_call(message.chat.id):
         await message.reply_text("Nuthin Streamin'....... ig so.. ", parse_mode = "md")
     else:
-        while True: 
-          try: 
-            callsmusic.queues.task_done(message.chat.id)
-          except ValueError: 
-            break
+        try: 
+          callsmusic.queues.clear(message.chat.id)
+        except QueueEmpty: 
+          pass 
         quu[message.chat.id] = []
         callsmusic.pytgcalls.leave_group_call(message.chat.id)
         sql.set_off(message.chat.id)
@@ -168,7 +167,6 @@ async def skip(_, message: Message):
               nex_song = " "
             callsmusic.pytgcalls.change_stream(
                 message.chat.id,
-                callsmusic.queues.get(message.chat.id)["file_path"]
-            )
+                callsmusic.queues.get(message.chat.id)["file_path"])
 
         await message.reply_text(f"Skipped....!\n{nex_song}", parse_mode = "md")
