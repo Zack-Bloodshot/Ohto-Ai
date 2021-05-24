@@ -34,7 +34,7 @@ def task_done(chat_id: int):
 
 def clear(chat_id: int):
   if chat_id in queues: 
-    for _ in range(q.qsize()):
-      q.get_nowait()
-      q.task_done()
+    for _ in range(queues.qsize()):
+      queues.get_nowait()
+      queues.task_done()
                        
