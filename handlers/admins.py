@@ -150,9 +150,12 @@ async def skip(_, message: Message):
         callsmusic.queues.task_done(message.chat.id)
         try:
           why = quu[message.chat.id]
-          why.pop(0)
         except KeyError:
           why = []
+        try: 
+          why.pop(0)
+        except IndexError: 
+          pass
         if callsmusic.queues.is_empty(message.chat.id):
             nex_song = " "
             callsmusic.pytgcalls.leave_group_call(message.chat.id)
