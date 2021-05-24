@@ -31,7 +31,8 @@ def task_done(chat_id: int):
             queues[chat_id].task_done()
         except ValueError:
             pass
-
+    else: 
+      raise ValueError
 
 def clear(chat_id: int):
     if chat_id in queues:
