@@ -16,13 +16,13 @@ from handlers.play import quu
 @authorized_users_only2
 async def res(_, message: Message): 
   global quu
-  if sql.is_call(message.chat.id):
-    sql.set_off(message.chat.id)
-  quu[message.chat.id] = []
   try:
     callsmusic.queues.clear(message.chat.id)
   except QueueEmpty:
-    pass
+    await message.reply("Queue empty")
+  if sql.is_call(message.chat.id):
+    sql.set_off(message.chat.id)
+  quu[message.chat.id] = []
   try: 
     callsmusic.pytgcalls.leave_group_call(message.chat.id) 
   except Exception:
