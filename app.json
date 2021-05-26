@@ -4,6 +4,14 @@
   "keywords": ["music", "voicechat", "telegram"],
   "repository": "https://github.com/TheVaders/MusicBot",
   "stack": "container",
+  "addons": [
+      {
+         "options": {
+            "version": "12"
+         },
+         "plan": "heroku-postgresql"
+      }
+  ],
   "env": {
     "SESSION_NAME": {
       "description": "Pyrogram session string",
@@ -20,7 +28,21 @@
     "API_HASH": {
       "description": "App hash from my.telegram.org/apps",
       "required": true
+    }, 
+    "OWNER_ID": {
+      "description": "The bot owner id, it will send a message to your pm everytime someone adds bot", 
+      "required": true
     },
+    "START_PIC": {
+      "description": "The pic to show in the start message, if not set default ohto-kun pic will be used", 
+      "required": false, 
+      "value": "https://telegra.ph/file/ff0b5f2df191253feb199.jpg"
+    },
+    "PLAY_PIC": {
+      "description": "The pic to be used while playing tg file, if not set default ohto-kun pic will be used", 
+      "required": false, 
+      "value": "https://telegra.ph/file/ff0b5f2df191253feb199.jpg"
+    }, 
     "SUDO_USERS": {
       "description": "List of user IDs counted as admin everywhere (separated by space).",
       "required": true
