@@ -45,7 +45,7 @@ async def res(_, message: Message):
     callsmusic.pytgcalls.leave_group_call(message.chat.id) 
   except Exception:
     pass
-  await message.reply("**Reset successful..!!!")
+  await message.reply("**Reset successful..!!!**")
 
 @Client.on_message(filters.command(["auth", f"auth@{BOT_USERNAME}"]) & other_filters)
 @errors 
@@ -148,7 +148,7 @@ async def stop(_, message: Message):
         quu[message.chat.id] = []
         callsmusic.pytgcalls.leave_group_call(message.chat.id)
         sql.set_off(message.chat.id)
-        await message.reply_text(f"Ahh, its peaceful now, Byee[            ]({PLAY_PIC})", parse_mode = "md")
+        await message.reply_text(f"Ahh, its peaceful now, Byee[...]({PLAY_PIC})", parse_mode = "md")
 
 
 @Client.on_message(filters.command(["skip", f"skip@{BOT_USERNAME}"]) & other_filters)
