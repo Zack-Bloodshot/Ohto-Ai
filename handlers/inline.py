@@ -19,8 +19,10 @@ async def inline(client: Client, query: InlineQuery):
         )
     else:
         search = VideosSearch(search_query, limit=50)
-
+        
         for result in search.result()["result"]:
+            idt = result['id']
+            tit = result['title']
             answers.append(
                 InlineQueryResultArticle(
                     title=result["title"],
@@ -29,7 +31,7 @@ async def inline(client: Client, query: InlineQuery):
                         result["viewCount"]["short"]
                     ),
                     input_message_content=InputTextMessageContent(
-                        "/play@{} https://youtu.be/{}\n\n{}".format(BOT_USERNAME, result["id"], result["title"]), disable_web_page_preview = True
+                        f"/play@{BOT_USERNAME} https://youtu.be/{idt}\n\n{tit}", disable_web_page_preview = True
                     ),
                     thumb_url=result["thumbnails"][0]["url"]
                 )
