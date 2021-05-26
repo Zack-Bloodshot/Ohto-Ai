@@ -37,6 +37,10 @@
       "description": "The bot owner id, it will send a message to your pm everytime someone adds bot", 
       "required": true
     },
+    "USERBOT_ID": {
+      "description": "this will be used to invite the userbot which will play", 
+      "required": true
+    }, 
     "START_PIC": {
       "description": "The pic to show in the start message, if not set default ohto-kun pic will be used", 
       "required": false, 
