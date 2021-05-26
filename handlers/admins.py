@@ -15,10 +15,11 @@ from config import PLAY_PIC
 from config import UBOT_ID as ubot
 
 @Client.on_message(filters.command(["summon", f"summon@{BOT_USERNAME}"]))
+@authorized_users_only2
 async def summon(client: Client, message: Message): 
   chat_id = message.chat.id
   try: 
-    hek = await client.chat_get_member(chat_id, ubot)
+    hek = await client.get_chat_member(chat_id, ubot)
   except PeerIdInvalid:
     await message.reply("Please start the original bot with the userbot account to record a touch, or many many functions won't work")
     return 
