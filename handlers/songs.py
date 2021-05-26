@@ -6,7 +6,6 @@ from pyrogram.types import Message, Voice
 import youtube_dl
 from youtube_search import YoutubeSearch
 import requests
-
 from config import BOT_NAME as Bn
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
@@ -37,10 +36,10 @@ async def a(client, message: Message):
             thumbnail = results[0]["thumbnails"][0]
             duration = results[0]["duration"]
 
-            ## UNCOMMENT THIS IF YOU WANT A LIMIT ON DURATION. CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
-            # if time_to_seconds(duration) >= 1800:  # duration limit
-            #     m.edit("Exceeded 30mins cap")
-            #     return
+            ## COMMENT THIS IF YOU DONT WANT A LIMIT ON DURATION. CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
+            if time_to_seconds(duration) >= 1800:  # duration limit
+                 m.edit("Exceeded 30mins cap")
+                 return
 
             views = results[0]["views"]
             thumb_name = f'thumb{message.message_id}.jpg'
