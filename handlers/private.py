@@ -10,19 +10,19 @@ from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, Voice
 
 from config import BOT_NAME as bn
-
+from config import START_PIC as sp 
 
 @Client.on_message(command("start") & other_filters2)
 async def start(_, message: Message):
     await message.reply_text(
-        f'I am **Ohto** !! I can play music for you in your voice chat!!, send /help for command list...\nAdd me and @RikaKaawaai and then use me!![... ](https://telegra.ph/file/ff0b5f2df191253feb199.jpg)', parse_mode = "markdown", 
+        f'I am **{bn}** !! I can play music for you in your voice chat!!, send /help for command list...\n[              ]({sp})', parse_mode = "markdown", 
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "Add me to your group", url="https://t.me/OhtoAiPlaysBot?startgroup=True"
+                        "Deploy me", url="https://heroku.com/deploy?template=https://github.com/Zack-Bloodshot/Ohto-Ai"
                     )],[
-                    InlineKeyboardButton(text = "My Owner", url = "https://t.me/DontKnowWhoRU"), InlineKeyboardButton(text = "Repo", url = "https://github.com/Zack-Bloodshot/Ohto-Ai")]
+                    InlineKeyboardButton(text = "Creator", url = "https://t.me/DontKnowWhoRU"), InlineKeyboardButton(text = "Repo", url = "https://github.com/Zack-Bloodshot/Ohto-Ai")]
             ]
         )
     )
@@ -30,7 +30,7 @@ async def start(_, message: Message):
 @Client.on_message(command("help") & other_filters2)
 @errors
 async def help(client, message: Message):
-  text = "I help ya all to play music!!\n The commands i  currently support are\n/play - Play the replied song or the youtube url given..\n/song - Upload the searched song in the chat..\n/pause - pause the song\n/resume - resumes music \n/skip - skips music\n/stop - stops\n/queue - to get the queue in your pm[...](https://telegra.ph/file/eb6414a4adc4582e239fc.mp4)"
+  text = f"I help ya all to play music!!\n The commands i  currently support are\n/play - Play the replied song or the youtube url given..\n/song - Upload the searched song in the chat..\n/pause - pause the song\n/resume - resumes music \n/skip - skips music\n/stop - stops\n/queue - to get the queue in your pm[          ]({sp})"
   await message.reply_text(text, parse_mode = "md")
   
 @Client.on_message(command("song") & other_filters2)
@@ -60,9 +60,9 @@ async def a(client, message: Message):
             duration = results[0]["duration"]
 
             ## UNCOMMENT THIS IF YOU WANT A LIMIT ON DURATION. CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
-            # if time_to_seconds(duration) >= 1800:  # duration limit
-            #     m.edit("Exceeded 30mins cap")
-            #     return
+            if time_to_seconds(duration) >= 1800:
+              m.edit("Exceeded 30mins cap")
+              return
 
             views = results[0]["views"]
             thumb_name = f'thumb{message.message_id}.jpg'
