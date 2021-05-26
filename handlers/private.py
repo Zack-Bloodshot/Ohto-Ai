@@ -59,7 +59,7 @@ async def a(client, message: Message):
             thumbnail = results[0]["thumbnails"][0]
             duration = results[0]["duration"]
 
-            ## UNCOMMENT THIS IF YOU WANT A LIMIT ON DURATION. CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
+            ## COMMENT THIS IF YOU DONT WANT A LIMIT ON DURATION. OR CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
             if time_to_seconds(duration) >= 1800:
               m.edit("Exceeded 30mins cap")
               return
