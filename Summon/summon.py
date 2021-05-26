@@ -10,8 +10,8 @@ async def joinchatto(client: Client, chat_id):
   await client.join_chat(chat_id)
   return True
   
-async def temo(): 
+def temo(): 
   temp.start()
   
-async def teme(): 
+def teme(): 
   temp.stop()
