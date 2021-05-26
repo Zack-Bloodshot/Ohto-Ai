@@ -10,8 +10,10 @@ from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only, authorized_users_only2
 from handlers.play import quu 
+from config import BOT_USERNAME
+from config import PLAY_PIC 
 
-@Client.on_message(filters.command(["reset", "restart@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
 @errors 
 @authorized_users_only2
 async def res(_, message: Message): 
@@ -29,7 +31,7 @@ async def res(_, message: Message):
     pass
   await message.reply("**Reset successful..!!!")
 
-@Client.on_message(filters.command(["auth", "auth@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["auth", f"auth@{BOT_USERNAME}"]) & other_filters)
 @errors 
 @authorized_users_only 
 async def aut(_, message: Message):
@@ -43,7 +45,7 @@ async def aut(_, message: Message):
     ats.approve(message.chat.id, reply.id)
     return await message.reply(f"[{reply.first_name}](tg://user?id={reply.id}) was authorized in {message.chat.title}")
 
-@Client.on_message(filters.command(["remauth", "remauth@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["remauth", f"remauth@{BOT_USERNAME}"]) & other_filters)
 @errors 
 @authorized_users_only 
 async def remauth(_, message: Message): 
@@ -61,7 +63,7 @@ async def meme_get(chat: Chat, user):
   return await chat.get_member(user)
 
 
-@Client.on_message(filters.command(["listauth", "listauth@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["listauth", f"listauth@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only 
 async def listauth(chat: Chat, message: Message):
     chat_title = message.chat.title
@@ -84,7 +86,7 @@ async def listauth(chat: Chat, message: Message):
     else:
       await message.reply(msg)
 
-@Client.on_message(filters.command(["pause", "pause@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["pause", f"pause@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def pause(_, message: Message):
@@ -101,7 +103,7 @@ async def pause(_, message: Message):
         await message.reply_text("Paused.. hek....", parse_mode = "md")
 
 
-@Client.on_message(filters.command(["resume", "resume@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["resume", f"resume@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def resume(_, message: Message):
@@ -116,7 +118,7 @@ async def resume(_, message: Message):
         await message.reply_text("Ahh Party On Again.... yay!!", parse_mode = "md")
 
 
-@Client.on_message(filters.command(["stop", "stop@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["stop", f"stop@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
@@ -130,10 +132,10 @@ async def stop(_, message: Message):
         quu[message.chat.id] = []
         callsmusic.pytgcalls.leave_group_call(message.chat.id)
         sql.set_off(message.chat.id)
-        await message.reply_text("Ahh, its peaceful now, Byee[....](https://telegra.ph/file/d3a1925bb934891796b25.mp4)", parse_mode = "md")
+        await message.reply_text(f"Ahh, its peaceful now, Byee[            ]({PLAY_PIC})", parse_mode = "md")
 
 
-@Client.on_message(filters.command(["skip", "skip@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["skip", f"skip@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only2
 async def skip(_, message: Message):
