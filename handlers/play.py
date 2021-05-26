@@ -109,8 +109,8 @@ async def play(_, message: Message):
             )
 
         file_name = get_file_name(audio)
-        text += "*Playin[...](https://telegra.ph/file/49fd302f1c0738257728c.mp4)"
-        text += req_user + "*"
+        text += f"**Playin[...]({PLAY_PIC})\n"
+        text += req_user + "**"
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🦄", callback_data = "na")]])
         await m.edit("Processing...")
         ruuta += "Tg file..., name unknown"
