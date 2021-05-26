@@ -1,6 +1,6 @@
 from pyrogram import Client
 from pytgcalls import PyTgCalls
-from handlers.play import quu
+from handlers.play import quu, nuw
 import config
 from . import queues
 from sql import calls as sql
