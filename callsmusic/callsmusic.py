@@ -18,10 +18,7 @@ def on_stream_end(chat_id: int) -> None:
         sql.set_off(message.chat.id)
         
     else:
-        try:
-          quu[chat_id].pop(0)
-        except Exception: 
-          pass
+        quu[chat_id].pop(0)
         pytgcalls.change_stream(
             chat_id, queues.get(chat_id)["file_path"]
         )
