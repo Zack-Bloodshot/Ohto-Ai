@@ -1,6 +1,6 @@
 from pyrogram import Client, errors
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
-
+from config import BOT_USERNAME 
 from youtubesearchpython import VideosSearch
 
 
@@ -9,7 +9,7 @@ async def inline(client: Client, query: InlineQuery):
     answers = []
     search_query = query.query.lower().strip().rstrip()
 
-    if search_query == "" or search_query == "Search...":
+    if search_query == "":
         await client.answer_inline_query(
             query.id,
             results=answers,
@@ -29,7 +29,7 @@ async def inline(client: Client, query: InlineQuery):
                         result["viewCount"]["short"]
                     ),
                     input_message_content=InputTextMessageContent(
-                        "/play@OhtoAiPlaysBot https://youtu.be/{}".format(result["id"]), disable_web_page_preview = True
+                        "/play@{} https://youtu.be/{}\n\n{}".format(BOT_USERNAME, result["id"], result["title"]), disable_web_page_preview = True
                     ),
                     thumb_url=result["thumbnails"][0]["url"]
                 )
