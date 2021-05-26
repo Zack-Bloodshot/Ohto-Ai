@@ -184,7 +184,12 @@ async def play(_, message: Message):
         await m.delete()
         await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
     else:
-        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
+        try: 
+          callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
+        except Exception:
+          await m.delete()
+          await message.reply("Looks like the group vc call is not on or userbot is not here, use /summon to summon the userbot")
+          return 
         sql.set_on(message.chat.id)
         await m.delete()
         quu[message.chat.id] = [ruuta]
