@@ -22,11 +22,11 @@ async def summon(client: Client, message: Message):
   except PeerIdInvalid:
     await message.reply("Please start the original bot with the userbot account to record a touch, or many many functions won't work")
     return 
- if hek:
-   return await message.reply("Summon On!")
- else: 
-  await client.add_chat_members(chat_id, ubot)
-  await message.reply("Summon Successfull! Now enjoy playing!")
+  if hek:
+    return await message.reply("Summon On!")
+  else: 
+    await client.add_chat_members(chat_id, ubot)
+    await message.reply("Summon Successfull! Now enjoy playing!")
 
 @Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
 @errors 
