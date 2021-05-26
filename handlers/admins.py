@@ -18,11 +18,9 @@ from config import UBOT_ID as ubot
 @authorized_users_only2
 async def summon(client: Client, message: Message): 
   chat_id = message.chat.id
-  try: 
-    await client.add_chat_members(chat_id, ubot)
-    await message.reply("Summon Successfull! Now enjoy playing!")
-  except Exception:
-    await message.reply("Summon On!")
+  await client.add_chat_members(chat_id, ubot)
+  await message.reply("Summon Successfull! Now enjoy playing!")
+ 
 
 @Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
 @errors 
