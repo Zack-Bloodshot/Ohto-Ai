@@ -19,7 +19,7 @@ from Summon.summon import joinchatto
 @authorized_users_only2
 async def summon(client: Client, message: Message): 
   m = message.reply("Yea well, waitto, will take some time!")
-  await joinchatto(_, int(message.chat.id))
+  await joinchatto(int(message.chat.id))
   await m.edit("Summon Successfull! Now enjoy playing!")
  
 
