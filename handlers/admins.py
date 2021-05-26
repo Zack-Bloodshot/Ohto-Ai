@@ -12,6 +12,13 @@ from helpers.decorators import errors, authorized_users_only, authorized_users_o
 from handlers.play import quu 
 from config import BOT_USERNAME
 from config import PLAY_PIC 
+from config import UBOT_ID as ubot
+
+@Client.on_message(filters.command(["summon", f"summon@{BOT_USERNAME}"]))
+async def summon(client: Client, message: Message): 
+  chat_id = message.chat.id 
+  await client.add_chat_members(chat_id, ubot)
+  await message.reply("Summon Successfull! Now enjoy playing!")
 
 @Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
 @errors 
