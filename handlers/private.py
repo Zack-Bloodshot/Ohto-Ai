@@ -15,7 +15,7 @@ from config import START_PIC as sp
 @Client.on_message(command("start") & other_filters2)
 async def start(_, message: Message):
     await message.reply_text(
-        f'I am **{bn}** !! I can play music for you in your voice chat!!, send /help for command list...\n[              ]({sp})', parse_mode = "markdown", 
+        f'I am **{bn}** !! I can play music for you in your voice chat!!, send /help for command list...\n[....]({sp})', parse_mode = "markdown", 
         reply_markup=InlineKeyboardMarkup(
             [
                 [
