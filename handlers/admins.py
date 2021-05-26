@@ -13,13 +13,16 @@ from handlers.play import quu
 from config import BOT_USERNAME
 from config import PLAY_PIC 
 from config import UBOT_ID as ubot
+from Summon.summon import joinchatto, temo, teme
 
 @Client.on_message(filters.command(["summon", f"summon@{BOT_USERNAME}"]))
 @authorized_users_only2
 async def summon(client: Client, message: Message): 
-  chat_id = message.chat.id
-  await client.add_chat_members(chat_id, ubot)
+  m = message.reply("Yea well, waitto, will take some time!")
+  await temo()
+  await joinchatto(message.chat.id)
   await message.reply("Summon Successfull! Now enjoy playing!")
+  await teme()
  
 
 @Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
