@@ -21,6 +21,10 @@
       "description": "A bot token from @BotFather",
       "required": true
     },
+    "BOT_USERNAME": {
+      "description": "Your Bot username, this is fcking necessary, if it doesn't matches bot username u won't be able to use inline", 
+      "required": true
+    }, 
     "API_ID": {
       "description": "App ID from my.telegram.org/apps",
       "required": true
