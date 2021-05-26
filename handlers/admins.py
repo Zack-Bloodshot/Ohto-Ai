@@ -20,7 +20,7 @@ from Summon.summon import joinchatto, temo, teme
 async def summon(client: Client, message: Message): 
   m = message.reply("Yea well, waitto, will take some time!")
   await temo()
-  await joinchatto(message.chat.id)
+  await joinchatto(int(message.chat.id))
   await message.reply("Summon Successfull! Now enjoy playing!")
   await teme()
  
