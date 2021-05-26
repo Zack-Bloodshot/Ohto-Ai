@@ -15,8 +15,7 @@ from helpers.decorators import authorized_users_only
 from helpers.decorators import authorized_users_only2
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
-from config import API_ID, API_HASH, BOT_TOKEN
-
+from config import API_ID, API_HASH, BOT_TOKEN, PLAT_PIC, BOT_USERNAME, OWNER_ID 
 quu = {} 
 
 @Client.on_message(filters.group & filters.new_chat_members)
@@ -24,16 +23,16 @@ quu = {}
 async def selfwelc(client: Client, message: Message):
   for user in message.new_chat_members:
     if user.id == 1704447681:
-      await message.reply_text("Sorry, You can't possibly use me as i am made to work in @Anime_Discussion_Cafe, look up my repo, in pm, fork it, and try to deploy me kek!")
+      await message.reply_text("Demmm kek, a new adventure, can't wait to tell Abhi-sama")
       chat_name = message.chat.title
       get = await client.get_chat(message.chat.id)
       if get.username:
         l = "https://t.me/" + get.username
       else:
         l = " "
-      await client.send_message(chat_id = 1285226731, text = f"#NEW_GROUP\n**Title: {chat_name}\n[...](l)**", parse_mode ="md")
+      await client.send_message(chat_id = OWNER_ID, text = f"#NEW_GROUP\n**Title: {chat_name}\n[...](l)**", parse_mode ="md")
 
-@Client.on_message(filters.command(["queue", "queue@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["queue", f"queue@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only2
 async def que(client: Client, message: Message):
@@ -67,7 +66,7 @@ async def que(client: Client, message: Message):
     await m.delete()
     await message.reply_text("Please go and contact me in pm kek!", reply_markup = markup)
 
-@Client.on_message(filters.command(["now", "now@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["now", f"now@{BOT_USERNAME}"]) & other_filters)
 @errors
 async def showplay(_, message: Message):
   global quu
@@ -76,18 +75,18 @@ async def showplay(_, message: Message):
   song = quu[message.chat.id][0]
   await message.reply(f"**Now playin in {message.chat.title}\n{song}**")
   
-@Client.on_message(filters.command(["start", "start@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["start", f"start@{BOT_USERNAME}"]) & other_filters)
 @errors
 async def startgrp(_, message: Message):
   await message.reply_text("Im awake and runnin' perfectly!!")
   
-@Client.on_message(filters.command(["help", "help@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["help", f"help@{BOT_USERNAME}"]) & other_filters)
 @errors
 async def helpgrp(_, message: Message):
-  markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Help", url = "t.me/OhtoAiPlaysBot?start=help")]])
+  markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Help", url = f"t.me/{BOT_USERNAME}?start=help")]])
   await message.reply_text("Yess!!, get to know me in my pm!", reply_markup = markup)
 
-@Client.on_message(filters.command(["play", "play@OhtoAiPlaysBot"]) & other_filters)
+@Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only2
 async def play(_, message: Message):
