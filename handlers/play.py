@@ -66,7 +66,7 @@ async def que(client: Client, message: Message):
     await m.delete()
     await message.reply_text("Please go and contact me in pm kek!", reply_markup = markup)
 
-async def nuwz(client: Client, chat_id):
+def nuwz(client: Client, chat_id):
   np = quu[chat_id][0]
   tex = f"Stream Changed!\nNow playing:\n\n **{np}**"
   client.send_message(chat_id, np)
