@@ -2,6 +2,7 @@ from pyrogram import Client as Bot
 import logging 
 from callsmusic import run
 from config import API_ID, API_HASH, BOT_TOKEN
+from Summon.summon import temo
 
 bot = Bot(
     ":memory:",
@@ -15,3 +16,4 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
  
 bot.start()
 run()
+temo()
