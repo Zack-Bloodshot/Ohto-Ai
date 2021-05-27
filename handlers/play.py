@@ -16,6 +16,7 @@ from helpers.decorators import authorized_users_only2
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID 
+import time 
 from config import START_TIME as st
 quu = {} 
 
