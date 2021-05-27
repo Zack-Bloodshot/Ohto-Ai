@@ -37,11 +37,9 @@ def authorized_users_only2(func: Callable) -> Callable:
             return await func(client, message)
         if sql.is_approved(message.chat.id, message.from_user.id):
             return await func(client, message)
-
         administrators = await get_administrators(message.chat)
-
-        for administrator in administrators:
-            if administrator == message.from_user.id:
+        for admin in administrators:
+            if admin == message.from_user.id:
                 return await func(client, message)
             else: 
               return await message.reply("Sorry..! only admemes and authorized memes!")
