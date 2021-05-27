@@ -115,7 +115,7 @@ async def showplay(_, message: Message):
 @errors
 async def startgrp(_, message: Message):
   starto = grt(time.time() - st)
-  await message.reply_text(f"Im awake and runnin' perfectly!!\nIm awake for: `{starto}`")
+  await message.reply_text(f"Im awake and runnin' perfectly!!\nHaven't napped since: `{starto}`")
   
 @Client.on_message(filters.command(["help", f"help@{BOT_USERNAME}"]) & other_filters)
 @errors
