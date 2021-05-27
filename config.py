@@ -1,8 +1,10 @@
 from os import getenv
-
+import time 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+START_TIME = time.time()
 
 SESSION_NAME = getenv("SESSION_NAME", "session")
 
