@@ -1,4 +1,5 @@
 from asyncio.queues import QueueEmpty
+from datetime import datetime as kek
 from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message, Chat, User
@@ -21,6 +22,13 @@ async def summon(client: Client, message: Message):
   await joinchatto(int(message.chat.id))
   await m.edit("Summon Successfull! Now enjoy playing!")
  
+@Client.on_message(filters.command(["ping", f"ping@{BOT_USERNAME}"]))
+async def pong(_, message: Message):
+  start = kek.now()
+  m = await message.reply("**PONG!**")
+  end = kek.now()
+  pon = (end - start).microseconds / 1000
+  await m.edit(f"**PONG!\nPing Time: `{pon}`")
 
 @Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
 @errors 
