@@ -101,11 +101,7 @@ async def listauth(chat: Chat, message: Message):
 async def pause(_, message: Message):
     if not sql.is_call(message.chat.id):
       return await message.reply("Nuthin playin.... ")
-    if (
-            message.chat.id not in callsmusic.pytgcalls.active_calls
-    ) or (
-            callsmusic.pytgcalls.active_calls[message.chat.id] == 'paused'
-    ):
+    if callsmusic.pytgcalls.active_calls[message.chat.id] == 'paused':
         await message.reply_text("Nuthin playing already right now..", parse_mode ="md")
     else:
         callsmusic.pytgcalls.pause_stream(message.chat.id)
@@ -116,12 +112,10 @@ async def pause(_, message: Message):
 @errors
 @authorized_users_only
 async def resume(_, message: Message):
-    if (
-            message.chat.id not in callsmusic.pytgcalls.active_calls
-    ) or (
-            callsmusic.pytgcalls.active_calls[message.chat.id] == 'playing'
-    ):
-        await message.reply_text("Nuthin playin right now....", parse_mode = "md")
+    if not sql.is_call(message.chat.id):
+      return await message.reply("Nuthin playin...")
+    if callsmusic.pytgcalls.active_calls[message.chat.id] == 'playing':
+        await message.reply_text("Already playing!!", parse_mode = "md")
     else:
         callsmusic.pytgcalls.resume_stream(message.chat.id)
         await message.reply_text("Ahh Party On Again.... yay!!", parse_mode = "md")
