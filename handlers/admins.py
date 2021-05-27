@@ -13,7 +13,6 @@ from handlers.play import quu
 from config import BOT_USERNAME
 from config import PLAY_PIC 
 from config import UBOT_ID as ubot
-from Summon.summon import joinchatto
 
 @Client.on_message(filters.command(["summon", f"summon@{BOT_USERNAME}"]))
 @authorized_users_only2
