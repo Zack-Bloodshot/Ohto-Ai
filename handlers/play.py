@@ -16,6 +16,7 @@ from helpers.decorators import authorized_users_only2
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID 
+from config import START_TIME as st
 quu = {} 
 
 @Client.on_message(filters.group & filters.new_chat_members)
@@ -71,6 +72,35 @@ def nuwz(client: Client, chat_id):
   tex = f"Stream Changed!\nNow playing:\n\n **{np}**"
   client.send_message(chat_id, np)
 
+def grt(seconds: int) -> str:
+    count = 0
+    ping_time = ""
+    time_list = []
+    time_suffix_list = ["s", "m", "h", "days"]
+
+    while count < 4:
+        count += 1
+        if count < 3:
+            remainder, result = divmod(seconds, 60)
+        else:
+            remainder, result = divmod(seconds, 24)
+        if seconds == 0 and remainder == 0:
+            break
+        time_list.append(int(result))
+        seconds = int(remainder)
+
+    for x in range(len(time_list)):
+        time_list[x] = str(time_list[x]) + time_suffix_list[x]
+    if len(time_list) == 4:
+        ping_time += time_list.pop() + ", "
+
+    time_list.reverse()
+    ping_time += ":".join(time_list)
+
+    return ping_time
+
+
+
 @Client.on_message(filters.command(["now", f"now@{BOT_USERNAME}"]) & other_filters)
 @errors
 async def showplay(_, message: Message):
@@ -83,7 +113,8 @@ async def showplay(_, message: Message):
 @Client.on_message(filters.command(["start", f"start@{BOT_USERNAME}"]) & other_filters)
 @errors
 async def startgrp(_, message: Message):
-  await message.reply_text("Im awake and runnin' perfectly!!")
+  starto = grt(time.time() - st)
+  await message.reply_text(f"Im awake and runnin' perfectly!!\nIm awake for: `{starto}`")
   
 @Client.on_message(filters.command(["help", f"help@{BOT_USERNAME}"]) & other_filters)
 @errors
