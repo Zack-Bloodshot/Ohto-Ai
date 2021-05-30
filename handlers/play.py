@@ -109,7 +109,7 @@ async def showplay(_, message: Message):
   if not sql.is_call(message.chat.id):
     return await message.reply("Nuthin playin...")
   song = quu[message.chat.id][0]
-  await message.reply(f"**Now playin in {message.chat.title}\n{song}**")
+  await message.reply(f"**Now playin in {message.chat.title}\n\n{song}**")
   
 @Client.on_message(filters.command(["start", f"start@{BOT_USERNAME}"]) & other_filters)
 @errors
@@ -124,6 +124,7 @@ async def helpgrp(_, message: Message):
   await message.reply_text("Yess!!, get to know me in my pm!", reply_markup = markup)
 
 def erro(mid, fp, ru):
+  sql.set_off(mid)
   global quu
   try: 
     callsmusic.pytgcalls.join_group_call(mid, fp)
@@ -139,6 +140,7 @@ def erro(mid, fp, ru):
 @authorized_users_only2
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
+    req_name = f"Requested By: {message.from_user.first_name}\n"
     req_user = f"Requested By: [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n"
     url = get_url(message)
     me = message.text.split(None, 1)
@@ -184,13 +186,13 @@ async def play(_, message: Message):
         except AttributeError:
           tum = thumb 
         text += f"\n**{title}[..]({tum})**"
-        ruuta += title
         duration = results[0]["duration"]
         text += f"\n**Duration: {str(duration)}**"
         #channel = results[0]["channel"]
         # += f"\n**Artist: {channel}**"
         text += f"\n**{req_user}**"
         file_path = await converter.convert(youtube.download(url))
+        ruuta += f"{title}\nDuration: {duration}\n{req_name}"
     elif not args == "None":
         results = []
         count = 0
@@ -212,13 +214,13 @@ async def play(_, message: Message):
         except AttributeError:
           tum = thumb
         text += f"\n**{title}[..]({tum})**"
-        ruuta += title 
         duration = results[0]["duration"]
         text += f"\n**Duration: {str(duration)}**"
         await m.edit("Processing...just-a-sec..")
         #channel = results[0]["channel"]
         #text += f"\n**Artist: {channel}**"
         text += f"\n**{req_user}**"
+        ruuta += f"{title}\nDuration: {duration}\n{req_name}"
     else:
       await m.delete()
       markup = InlineKeyboardMarkup([[(InlineKeyboardButton("Search And Play ", switch_inline_query_current_chat = ""))]])
@@ -234,8 +236,10 @@ async def play(_, message: Message):
           if m is True:
             await m.delete()
             await message.reply(text, reply_markup = markup)
+            return 
           else: 
             await message.reply("Ahh!! Looks like some error occurred, check if vc is on")
+            return
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
         await m.delete()
         await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
