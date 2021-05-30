@@ -230,7 +230,7 @@ async def play(_, message: Message):
           callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
         except Exception:
           await m.delete()
-          await message.reply("Looks like the group vc call is not on or userbot is not here, use /summon to summon the userbot")
+          await message.reply("Looks like the group vc call is not on")
           return 
         sql.set_on(message.chat.id)
         await m.delete()
