@@ -52,7 +52,7 @@ async def que(client: Client, message: Message):
       tex +=  "•" 
       tex += i 
       if i == why[0]:
-        tex += "**`(playin now)`**"
+        tex += "`(playin now)`"
       tex += "\n\n"
       count += 1
     print(tex)
