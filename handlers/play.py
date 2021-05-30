@@ -123,17 +123,15 @@ async def helpgrp(_, message: Message):
   markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Help", url = f"t.me/{BOT_USERNAME}?start=help")]])
   await message.reply_text("Yess!!, get to know me in my pm!", reply_markup = markup)
 
-def erro():
+def erro(mid, fp, ru):
+  global quu
   try: 
-    callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
+    callsmusic.pytgcalls.join_group_call(mid, fp)
   except Exception:
-    await m.delete()
-    await message.reply("Looks like the group vc call is not on")
-          return 
-    sql.set_on(message.chat.id)
-    await m.delete()
-    quu[message.chat.id] = [ruuta]
-    await message.reply_text(text, reply_markup = markup, parse_mode = "md")
+    return False
+  sql.set_on(mid)
+  quu[mid] = [ru]
+  return True
  
 
 @Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
@@ -231,10 +229,13 @@ async def play(_, message: Message):
         global quu
         try:
           quu[message.chat.id].append(ruuta)
-        except KeyError: 
-          sql.set_off(message.chat.id)
-          await message.reply(f"Ahh Forgot to update my db!!\nTry Again Onegaishimasu {req_user}!!!")
-          return 
+        except KeyError:
+          m = erro(message.chat.id, file_path, rutta)
+          if m is True:
+            await m.delete()
+            await message.reply(text, reply_markup = markup)
+          else: 
+            await message.reply("Ahh!! Looks like some error occurred, check if vc is on")
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
         await m.delete()
         await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
