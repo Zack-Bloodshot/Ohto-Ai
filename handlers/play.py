@@ -123,6 +123,19 @@ async def helpgrp(_, message: Message):
   markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Help", url = f"t.me/{BOT_USERNAME}?start=help")]])
   await message.reply_text("Yess!!, get to know me in my pm!", reply_markup = markup)
 
+def erro():
+  try: 
+    callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
+  except Exception:
+    await m.delete()
+    await message.reply("Looks like the group vc call is not on")
+          return 
+    sql.set_on(message.chat.id)
+    await m.delete()
+    quu[message.chat.id] = [ruuta]
+    await message.reply_text(text, reply_markup = markup, parse_mode = "md")
+ 
+
 @Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only2
