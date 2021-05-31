@@ -1,5 +1,7 @@
 from os import path
 from sql import calls as sql
+from sql import auth as sql2
+from sql import playlist as pl
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
@@ -135,10 +137,16 @@ def erro(mid, fp, ru):
   return True
  
 
-@Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}", "playlist", f"playlist@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only2
 async def play(_, message: Message):
+    if pl.is_playlist_on(message.chat.id):
+      return await message.reply("A playlist seems to be on, Please use `/stop` or `/reset` to play songs!!")
+    if message.text.startswith("/playlist"): 
+      if sql2.is_approved(message.from_user.id): 
+        return 
+      pl.set_playlist_on(message.chat.id)
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
     req_name = f"Requested By: {message.from_user.first_name}\n"
     req_user = f"Requested By: [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n"
@@ -153,10 +161,11 @@ async def play(_, message: Message):
     markup = " "
     m = await message.reply_text("Wait-a-min....(^_-)")
     if audio:
-        if round(audio.duration / 60) > DURATION_LIMIT:
-            raise DurationLimitError(
-                f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed!\n🤐 The provided video is {audio.duration / 60} minute(s)"
-            )
+        if pl.is_playlist_on(message.chat.id):
+          pass
+        else: 
+          if round(audio.duration / 60) > DURATION_LIMIT:
+            raise DurationLimitError(f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed!\n🤐 The provided video is {audio.duration / 60} minute(s)")
 
         file_name = get_file_name(audio)
         text += f"**Playin[...]({PLAY_PIC})\n"
@@ -187,6 +196,10 @@ async def play(_, message: Message):
           tum = thumb 
         text += f"\n**{title}[..]({tum})**"
         duration = results[0]["duration"]
+        if pl.is_playlist_on(message.chat.id):
+          pass
+        else: 
+          return await message.reply(f"Seems like you wanna murder me by trying to play a **{duration}** long song")
         text += f"\n**Duration: {str(duration)}**"
         #channel = results[0]["channel"]
         # += f"\n**Artist: {channel}**"
