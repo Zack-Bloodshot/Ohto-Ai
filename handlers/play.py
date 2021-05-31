@@ -198,7 +198,8 @@ async def play(_, message: Message):
         duration = results[0]["duration"]
         if pl.is_playlist_on(message.chat.id):
           pass
-        else: 
+        else:
+          if duration 
           return await message.reply(f"Seems like you wanna murder me by trying to play a **{duration}** long song")
         text += f"\n**Duration: {str(duration)}**"
         #channel = results[0]["channel"]
