@@ -30,7 +30,7 @@ async def pong(_, message: Message):
   pon = (end - start).microseconds / 1000
   await m.edit(f"**PONG!\nPing Time: `{pon}`")
 
-@Client.on_message(filters.command(["reset", f"restart@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(filters.command(["reset", f"reset@{BOT_USERNAME}"]) & other_filters)
 @errors 
 @authorized_users_only2
 async def res(_, message: Message): 
