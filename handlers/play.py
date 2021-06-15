@@ -16,7 +16,7 @@ from helpers.decorators import authorized_users_only
 from helpers.decorators import authorized_users_only2
 from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
-from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID 
+from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 import time 
 from config import START_TIME as st
 quu = {} 
@@ -25,7 +25,7 @@ quu = {}
 @errors
 async def selfwelc(client: Client, message: Message):
   for user in message.new_chat_members:
-    if user.id == 1704447681:
+    if user.id == int(UBOT_ID):
       await message.reply_text("Demmm kek, a new adventure, can't wait to tell Abhi-sama")
       chat_name = message.chat.title
       get = await client.get_chat(message.chat.id)
