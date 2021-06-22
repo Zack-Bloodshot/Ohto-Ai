@@ -88,7 +88,7 @@ async def a(client, message: Message):
         await m.delete()
     except Exception as e:
       print(e)
-        await m.edit(f"❌ Error!! \n\n{e}")
+      await m.edit(f"❌ Error!! \n\n{e}")
     try:
         os.remove(audio_file)
         os.remove(thumb_name)
