@@ -44,7 +44,7 @@ async def a(client, message: Message):
     m = await message.reply(f"*🔍 Searching for {okvai}**", parse_mode="md")
     ydl_opts = {
       "format": "bestaudio",
-      "geo-bypass": True",
+      "geo-bypass": True,
       "outtmp": "%(id)s.mp3",
     }
     try:
