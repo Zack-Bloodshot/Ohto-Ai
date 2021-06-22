@@ -16,9 +16,10 @@ bot = Bot(
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
 logger = logging.getLogger('__name__') 
 
-bot.send_message(int(OWNER_ID), "Im onlime")
 
 print("Ohto Ai: Starting.....!!!")
 
 bot.start()
 run()
+
+bot.send_message(int(OWNER_ID), "Im onlime")
