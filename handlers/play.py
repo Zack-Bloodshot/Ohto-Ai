@@ -163,7 +163,7 @@ async def play(_, message: Message):
         text += f"{req_user}**"
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🦄", callback_data = "na")]])
         await m.edit("Processing...")
-        ruuta += f"**{title}\nDuration** = {audio.duration}\n**Requested By** = {req_name}"
+        ruuta += f"**\n\n{title}\nRequested By= {req_name}**"
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name)) else file_name
