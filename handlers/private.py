@@ -48,7 +48,7 @@ async def a(client, message: Message):
       "addmetadata": True,
       "geo-bypass": True,
       "nocheckcertificate": True,
-      "outtmp": "%(id)s.mp3",
+      "outtmpl": "%(id)s.mp3",
     }
     try:
         results = []
