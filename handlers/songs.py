@@ -8,11 +8,13 @@ from youtube_search import YoutubeSearch
 import requests
 from config import BOT_NAME as Bn
 from helpers.filters import command, other_filters
+from helpers.decorators import authorized_users_only2
 from helpers.decorators import errors
 
 @Client.on_message(command("song") & other_filters)
 @errors
-async def a(client, message: Message):
+@authorized_users_only2
+async def song(client, message: Message):
     query = ''
     for i in message.command[1:]:
         query += ' ' + str(i)
@@ -36,21 +38,16 @@ async def a(client, message: Message):
             thumbnail = results[0]["thumbnails"][0]
             duration = results[0]["duration"]
 
-            ## COMMENT THIS IF YOU DONT WANT A LIMIT ON DURATION. OR CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
-            if time_to_seconds(duration) >= 1800:  # duration limit
-                 m.edit("Exceeded 30mins cap")
-                 return
-
             views = results[0]["views"]
             thumb_name = f'thumb{message.message_id}.jpg'
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, 'wb').write(thumb.content)
 
         except Exception as e:
-            m.edit(f"Found nothing. Try changing the spelling a little.\n\n{e}")
+            await m.edit(f"Found nothing. Try changing the spelling a little.\n\n{e}")
             return
     except Exception as e:
-        m.edit(
+        await m.edit(
            f"Ahh, Found Nothing. Sorry.\n\nTry another keywork or maybe spell it properly."
         )
         print(str(e))
@@ -69,7 +66,7 @@ async def a(client, message: Message):
         await  message.reply_audio(audio_file, caption=rep, parse_mode='md',quote=False, title=title, duration=dur, thumb=thumb_name)
         await m.delete()
     except Exception as e:
-        m.edit(f"❌ Error!! \n\n{e}")
+        await m.edit(f"❌ Error!! \n\n{e}")
     try:
         os.remove(audio_file)
         os.remove(thumb_name)
