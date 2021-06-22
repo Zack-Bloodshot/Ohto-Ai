@@ -158,11 +158,12 @@ async def play(_, message: Message):
           raise DurationLimitError(f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed!\n🤐 The provided video is {audio.duration / 60} minute(s)")
 
         file_name = get_file_name(audio)
-        text += f"**Playin[...]({PLAY_PIC})\n"
-        text += req_user + "**"
+        title = f"{audio.file_name}"
+        text += f"**{title}[...]({PLAY_PIC})\n"
+        text += f"Requested By: {req_user}**"
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🦄", callback_data = "na")]])
         await m.edit("Processing...")
-        ruuta += "Tg file..., name unknown"
+        ruuta += f"**{title}\nDuration** = {audio.duration}\n**Requested By** = {req_name}"
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name)) else file_name
