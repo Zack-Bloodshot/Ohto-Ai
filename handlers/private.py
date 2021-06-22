@@ -42,7 +42,10 @@ async def a(client, message: Message):
     okvai = query.capitalize()
     print(query.capitalize())
     m = await message.reply(f"*🔍 Searching for {okvai}**", parse_mode="md")
-    ydl_opts = {"format": "bestaudio"}
+    ydl_opts = {
+      "format": "bestaudio",
+      "geo-bypass": True",
+    }
     try:
         results = []
         count = 0
