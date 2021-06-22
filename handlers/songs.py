@@ -21,7 +21,7 @@ async def song(client, message: Message):
     okvai = query.capitalize()
     print(query.capitalize())
     m = await message.reply(f"🔍 Searching for {okvai}")
-    ydl_opts = {"format": "bestaudio[ext=m4a]"}
+    ydl_opts = {"format": "bestaudio"}
     try:
         results = []
         count = 0
