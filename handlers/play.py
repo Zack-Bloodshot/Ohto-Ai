@@ -160,7 +160,7 @@ async def play(_, message: Message):
         file_name = get_file_name(audio)
         title = f"{audio.file_name}"
         text += f"**{title}[...]({PLAY_PIC})\n"
-        text += f"Requested By: {req_user}**"
+        text += f"{req_user}**"
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🦄", callback_data = "na")]])
         await m.edit("Processing...")
         ruuta += f"**{title}\nDuration** = {audio.duration}\n**Requested By** = {req_name}"
