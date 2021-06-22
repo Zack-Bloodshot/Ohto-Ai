@@ -30,7 +30,7 @@ async def start(_, message: Message):
 @Client.on_message(command("help") & other_filters2)
 @errors
 async def help(client, message: Message):
-  text = f"I help ya all to play music!!\n\n Use inline mode to play, it makes things easier for you and me, i will search the song and on tapping a result it will initiate play! \n\nThe commands i  currently support are:\n/play - Play the replied song or the youtube url given..\n/song - Upload the searched song in the chat..\n/pause - pause the song\n/resume - resumes music \n/skip - skips to the next song\n/stop - stops the playback and clears queue \n/queue - to get the queue in your pm\n/now - get the currently playing song, can be used by anyone\n/reset - use this to reset everything, use when bot misfunctions[          ]({sp})"
+  text = f"I help ya all to play music!!\n\n Use inline mode to play, it makes things easier for you and me, i will search the song and on tapping a result it will initiate play! \n\nThe commands i  currently support are:\n/play - Play the replied song or the youtube url given..\n/song - Upload the searched song in the chat..\n/pause - pause the song\n/resume - resumes music \n/skip - skips to the next song\n/stop - stops the playback and clears queue \n/queue - to get the queue in your pm\n/now - get the currently playing song, can be used by anyone\n/reset - use this to reset everything, use when bot misfunctions[    ..      ]({sp})"
   await message.reply_text(text, parse_mode = "md")
   
 @Client.on_message(command("song") & other_filters2)
