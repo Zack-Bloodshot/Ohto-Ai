@@ -45,6 +45,7 @@ async def a(client, message: Message):
     ydl_opts = {
       "format": "bestaudio",
       "geo-bypass": True",
+      "outtmp": "%(id)s.mp3",
     }
     try:
         results = []
