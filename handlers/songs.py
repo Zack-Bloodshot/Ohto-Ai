@@ -23,6 +23,7 @@ async def song(client, message: Message):
     m = await message.reply(f"🔍 Searching for {okvai}")
     ydl_opts = {
       "format": "bestaudio",
+      "addmetadata": True,
       "geo-bypass": True,
       "outtmpl": "%(id)s.mp3",
     }
