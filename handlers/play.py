@@ -19,7 +19,10 @@ from helpers.gets import get_url, get_file_name
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 import time 
 from config import START_TIME as st
+
 quu = {} 
+
+sleep_time = 3
 
 @Client.on_message(filters.group & filters.new_chat_members)
 @errors
@@ -39,6 +42,10 @@ async def selfwelc(client: Client, message: Message):
 @errors
 @authorized_users_only2
 async def que(client: Client, message: Message):
+  try:
+    await message.delete()
+  except Exception as e:
+    print(e)
   global quu
   try:
     why = quu[message.chat.id]
@@ -67,7 +74,9 @@ async def que(client: Client, message: Message):
     await client.send_message(chat_id = message.from_user.id, text = tex)
   except PeerIdInvalid:
     await m.delete()
-    await message.reply_text("Please go and contact me in pm kek!", reply_markup = markup)
+    m = await message.reply_text("Please go and contact me in pm kek!", reply_markup = markup)
+  time.sleep(sleep_time)
+  await m.delete()
 
 def nuwz(client: Client, chat_id):
   np = quu[chat_id][0]
@@ -109,8 +118,13 @@ async def showplay(_, message: Message):
   global quu
   if not sql.is_call(message.chat.id):
     return await message.reply("Nuthin playin...")
+  try:
+    message.delete()
+  except Exception:
+    pass
   song = quu[message.chat.id][0]
-  await message.reply(f"**Now playin in {message.chat.title}\n\n{song}**")
+  m = await message.reply(f"**Now playin in {message.chat.title}\n\n{song}**")
+  time.sleep(sleep_time)
   
 @Client.on_message(filters.command(["start", f"start@{BOT_USERNAME}"]) & other_filters)
 @errors
@@ -153,6 +167,10 @@ async def play(_, message: Message):
     text = " "
     markup = " "
     m = await message.reply_text("Wait-a-min....(^_-)")
+    try:
+      await message.delete()
+    except Exception:
+      pass
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
           raise DurationLimitError(f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed!\n🤐 The provided video is {audio.duration / 60} minute(s)")
@@ -242,7 +260,9 @@ async def play(_, message: Message):
             return
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
         await m.delete()
-        await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
+        m = await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
+        time.sleep(sleep_time)
+        await m.delete() 
     else:
         try: 
           callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
@@ -253,4 +273,6 @@ async def play(_, message: Message):
         sql.set_on(message.chat.id)
         await m.delete()
         quu[message.chat.id] = [ruuta]
-        await message.reply_text(text, reply_markup = markup, parse_mode = "md")
+        m = await message.reply_text(text, reply_markup = markup, parse_mode = "md")
+        time.sleep(sleep_time)
+        await m.delete()
