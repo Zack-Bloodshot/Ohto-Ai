@@ -120,16 +120,16 @@ async def showplay(_, message: Message):
   global quu
   if not sql.is_call(message.chat.id):
     return await message.reply("Nuthin playin...")
-  try:
-    await message.delete()
-  except Exception:
-    pass
   song = quu[message.chat.id][0]
   if message.reply_to_message:
     m = await message.reply_to_message.reply(f"**Now playin in {message.chat.title}\n\n{song}**")
   else:
     m = await message.reply(f"**Now playing in {message.chat.title}\n\n{song}**")
-  time.sleep(sleep_time)
+  try:
+    await message.delete()
+  except Exception:
+    pass
+  time.sleep(5)
   await m.delete()
   
 @Client.on_message(filters.command(["start", f"start@{BOT_USERNAME}"]) & other_filters)
