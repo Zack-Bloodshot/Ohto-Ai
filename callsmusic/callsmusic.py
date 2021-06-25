@@ -1,6 +1,6 @@
 from pyrogram import Client
 from pytgcalls import PyTgCalls
-from handlers.play import quu, nuwz
+from handlers.play import quu, send_now_playing
 import config
 from . import queues
 from sql import calls as sql
@@ -22,7 +22,7 @@ def on_stream_end(chat_id: int) -> None:
         pytgcalls.change_stream(
             chat_id, queues.get(chat_id)["file_path"]
         )
-        nuwz(chat_id)
+        send_now_playing(chat_id)
 
 
 run = pytgcalls.run
