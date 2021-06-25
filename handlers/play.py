@@ -282,3 +282,4 @@ async def play(_, message: Message):
         m = await message.reply_text(text, reply_markup = markup, parse_mode = "md")
         time.sleep(sleep_time)
         await m.delete()
+
