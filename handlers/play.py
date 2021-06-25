@@ -78,7 +78,7 @@ async def que(client: Client, message: Message):
   time.sleep(sleep_time)
   await m.delete()
 
-def nuwz(chat_id):
+def send_now_playing(chat_id):
   np = quu[chat_id][0]
   tex = f"Stream Changed!\nNow playing:\n\n **{np}**"
   m = Client.send_message(chat_id, tex)
@@ -119,7 +119,7 @@ async def showplay(_, message: Message):
   if not sql.is_call(message.chat.id):
     return await message.reply("Nuthin playin...")
   try:
-    message.delete()
+    await message.delete()
   except Exception:
     pass
   song = quu[message.chat.id][0]
