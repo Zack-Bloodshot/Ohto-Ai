@@ -78,10 +78,10 @@ async def que(client: Client, message: Message):
   time.sleep(sleep_time)
   await m.delete()
 
-def nuwz(client: Client, chat_id):
+def nuwz(chat_id):
   np = quu[chat_id][0]
   tex = f"Stream Changed!\nNow playing:\n\n **{np}**"
-  client.send_message(chat_id, np)
+  m = Client.send_message(chat_id, tex)
 
 def grt(seconds: int) -> str:
     count = 0
