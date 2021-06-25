@@ -22,7 +22,10 @@ def on_stream_end(chat_id: int) -> None:
         pytgcalls.change_stream(
             chat_id, queues.get(chat_id)["file_path"]
         )
-        send_now_playing(chat_id)
+        try:
+          send_now_playing(chat_id)
+        except Exception as e:
+          print(e)
 
 
 run = pytgcalls.run
