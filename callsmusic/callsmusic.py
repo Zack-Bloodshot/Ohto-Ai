@@ -15,7 +15,7 @@ def on_stream_end(chat_id: int) -> None:
 
     if queues.is_empty(chat_id):
         pytgcalls.leave_group_call(chat_id)
-        sql.set_off(message.chat.id)
+        sql.set_off(chat_id)
         
     else:
         quu[chat_id].pop(0)
