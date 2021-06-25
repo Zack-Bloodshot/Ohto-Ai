@@ -78,7 +78,6 @@ async def que(client: Client, message: Message):
   time.sleep(sleep_time)
   await m.delete()
 
-@pytgcalls.on_stream_end()
 def send_now_playing(chat_id):
   if queues.is_empty(chat_id):
    return
