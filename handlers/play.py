@@ -125,8 +125,12 @@ async def showplay(_, message: Message):
   except Exception:
     pass
   song = quu[message.chat.id][0]
-  m = await message.reply(f"**Now playin in {message.chat.title}\n\n{song}**")
+  if message.reply_to_message:
+    m = await message.reply_to_message.reply(f"**Now playin in {message.chat.title}\n\n{song}**")
+  else:
+    m = await message.reply(f"**Now playing in {message.chat.title}\n\n{song}**")
   time.sleep(sleep_time)
+  await m.delete()
   
 @Client.on_message(filters.command(["start", f"start@{BOT_USERNAME}"]) & other_filters)
 @errors
