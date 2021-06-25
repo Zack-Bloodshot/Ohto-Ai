@@ -16,6 +16,7 @@ def errors(func: Callable) -> Callable:
               await message.reply_text("Ahh sorry looks like i am not being able to download..., please retry again or use telegram files..")
             else: 
               await message.reply(f"{type(e).__name__}: {e}")
+              print(e)
 
     return decorator
 
