@@ -68,7 +68,7 @@ async def que(client: Client, message: Message):
     tex = "**No songs in queue right now!"
   tex += "**"
   print(tex) 
-  markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Check Private!", url = "https://t.me/OhtoAiPlaysBot")]])
+  markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Check Private!", url = f"https://t.me/{BOT_USERNAME}")]])
   m = await message.reply_text("Its in your pm!, if u contacted with me before!!", reply_markup = markup) 
   try:
     await client.send_message(chat_id = message.from_user.id, text = tex)
