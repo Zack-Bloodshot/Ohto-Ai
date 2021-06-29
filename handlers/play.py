@@ -256,7 +256,7 @@ async def play(_, message: Message):
         try:
           quu[message.chat.id].append(ruuta)
         except KeyError:
-          m = erro(message.chat.id, file_path, rutta)
+          m = erro(message.chat.id, file_path, ruuta)
           if m is True:
             await m.delete()
             await message.reply(text, reply_markup = markup)
