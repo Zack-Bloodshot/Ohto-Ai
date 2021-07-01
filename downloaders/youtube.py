@@ -29,4 +29,4 @@ def download(url: str) -> str:
     path, ext = os.path.splitext(dl)
     file_name = path + '.m4a'
     dl = os.rename(dl, file_name)
-    return os.path.join("downloads", dl)
+    return os.path.join("downloads", file_name)
