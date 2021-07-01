@@ -5,6 +5,7 @@ python-dotenv
 youtube_dl
 youtube_search_python
 youtube-dl
+pytube
 youtube_search
 requests
 sqlalchemy==1.3.23
