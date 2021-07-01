@@ -27,6 +27,6 @@ def download(url: str) -> str:
 
     dl = yl.download()
     path, ext = os.path.splitext(dl)
-    file_name = path + '.m4a'
+    file_name = path + '.webm'
     dl = os.rename(dl, file_name)
     return os.path.join("downloads", file_name)
