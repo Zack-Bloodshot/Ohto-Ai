@@ -18,7 +18,7 @@ ydl = YoutubeDL(ydl_opts)
 def download(url: str) -> str:
     yt = YT(url)
     yl = yt.streams.get_audio_only()
-    duration = round(yt.lenght / 60)
+    duration = round(yt.length / 60)
 
     if duration > DURATION_LIMIT:
         raise DurationLimitError(
