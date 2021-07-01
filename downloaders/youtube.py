@@ -29,4 +29,4 @@ def download(url: str) -> str:
     path, ext = os.path.splitext(dl)
     file_name = path + '.mp3'
     dl = os.rename(dl, file_name)
-    return path.join(dl, "downloads", file_name)
+    return os.path.join(dl, "downloads", file_name)
