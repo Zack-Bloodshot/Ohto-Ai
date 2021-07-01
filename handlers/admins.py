@@ -96,7 +96,7 @@ async def listauth(chat: Chat, message: Message):
       if not member == " ": 
         msg += f"{count}) `{i.user_id}`: {member.user['first_name']}\n"
       else:
-        msg += f"{count}) `{i.user_id}`: (I didn't see him yet in pm )"
+        msg += f"{count}) `{i.user_id}`: (I didn't see him yet in pm )\n"
     if msg.endswith("approved.\n"):
         message.reply(f"No users are approved in {chat_title}.")
         return ""
