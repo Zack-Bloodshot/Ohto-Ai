@@ -29,4 +29,4 @@ def download(url: str) -> str:
     path, ext = os.path.splitext(dl)
     file_name = yt.id + '.mp3'
     dl = os.rename(dl, file_name)
-    return path.join("downloads", f"{yt.id'}.mp3")
+    return path.join("downloads", f"{yt.id}.mp3")
