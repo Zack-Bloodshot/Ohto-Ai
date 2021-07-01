@@ -1,7 +1,7 @@
 from os import path
 
 from youtube_dl import YoutubeDL
-
+from pytube import YouToube as YT
 from config import BOT_NAME as bn, DURATION_LIMIT
 from helpers.errors import DurationLimitError
 
@@ -16,13 +16,17 @@ ydl = YoutubeDL(ydl_opts)
 
 
 def download(url: str) -> str:
-    info = ydl.extract_info(url, False)
-    duration = round(info["duration"] / 60)
+    yt = YT(url)
+    ydl = yt.streams.get_audio_only()
+    duration = round(yt["duration"] / 60)
 
     if duration > DURATION_LIMIT:
         raise DurationLimitError(
             f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
         )
 
-    ydl.download([url])
-    return path.join("downloads", f"{info['id']}.{info['ext']}")
+    dl = ydl.download()
+    path, ext = os.path.splitext(dl)
+    file_name = yt.id + '.mp3'
+    dl = os.rename(dl, file_name)
+    return path.join("downloads", f"{yt.id'}.mp3")
