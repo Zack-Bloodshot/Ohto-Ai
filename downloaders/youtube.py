@@ -17,7 +17,7 @@ ydl = YoutubeDL(ydl_opts)
 
 def download(url: str) -> str:
     yt = YT(url)
-    ydl = yt.streams.get_audio_only()
+    yl = yt.streams.get_audio_only()
     duration = round(yt["duration"] / 60)
 
     if duration > DURATION_LIMIT:
@@ -25,7 +25,7 @@ def download(url: str) -> str:
             f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
         )
 
-    dl = ydl.download()
+    dl = yl.download()
     path, ext = os.path.splitext(dl)
     file_name = yt.id + '.mp3'
     dl = os.rename(dl, file_name)
