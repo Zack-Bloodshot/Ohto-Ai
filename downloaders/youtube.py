@@ -27,6 +27,6 @@ def download(url: str) -> str:
 
     dl = yl.download()
     path, ext = os.path.splitext(dl)
-    file_name = yt.id + '.mp3'
+    file_name = path + '.mp3'
     dl = os.rename(dl, file_name)
-    return path.join("downloads", f"{yt.id}.mp3")
+    return path.join("downloads", f"{file_name}")
