@@ -15,6 +15,9 @@ from config import BOT_USERNAME
 from config import PLAY_PIC 
 from config import UBOT_ID as ubot
 
+def mention(name, userid):
+  return f"[{name}](tg://user?id={userid})"
+
 @Client.on_message(filters.command(["summon", f"summon@{BOT_USERNAME}"]))
 @authorized_users_only2
 async def summon(client: Client, message: Message): 
@@ -62,22 +65,38 @@ async def aut(_, message: Message):
     ats.approve(message.chat.id, reply.id)
     return await message.reply(f"[{reply.first_name}](tg://user?id={reply.id}) was authorized in {message.chat.title}")
 
+async def meme_get(chat: Chat, user): 
+  return await chat.get_member(user)
+
 @Client.on_message(filters.command(["remauth", f"remauth@{BOT_USERNAME}"]) & other_filters)
 @errors 
 @authorized_users_only 
 async def remauth(_, message: Message): 
   reply = message.reply_to_message
   if not reply: 
-    return await message.reply("Reply To a user to unauthorize.. ")
-  user = reply.from_user
-  if ats.is_approved(message.chat.id, user.id):
-    ats.disapprove(message.chat.id, user.id)
-    await message.reply(f"[{user.first_name}](tg://user?id={user.id}) was removed from authorized list..")
+    user = message.text[8:] 
+    if user == '':
+      return await message.reply("Reply To a user or use the user id to unauthorize.. ")
+  else:
+    user = reply.from_user.id
+  if ats.is_approved(message.chat.id, user):
+    ats.disapprove(message.chat.id, user)
+    try:
+      meme = await meme_get(message.chat, int(user))
+    except PeerIdInvalid:
+      meme = False
+    text = "{} was unauthorized in {}"
+    if not meme == False:
+      kek = mention(meme.first_name, meme.id)
+      text.format(kek, message.chat.title)
+      await message.reply(text) 
+    else:
+      hek = f"`{user}` (I hadn't met this user in pm)"
+      text.format(hek, message.chat.title)
+      await message.reply(text)
   else: 
-    return await message.reply(f"[{user.first_name}](tg://user?id={user.id}) is already not authorized..")
+    return await message.reply("This user is already not authorized..")
 
-async def meme_get(chat: Chat, user): 
-  return await chat.get_member(user)
 
 
 @Client.on_message(filters.command(["listauth", f"listauth@{BOT_USERNAME}"]) & other_filters)
