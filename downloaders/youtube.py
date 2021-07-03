@@ -16,17 +16,13 @@ ydl = YoutubeDL(ydl_opts)
 
 
 def download(url: str) -> str:
-    yt = YT(url)
-    yl = yt.streams.get_audio_only()
-    duration = round(yt.length / 60)
+    info = ydl.extract_info(url, False)
+    duration = round(info['duration'] / 60)
 
     if duration > DURATION_LIMIT:
         raise DurationLimitError(
             f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
         )
 
-    dl = yl.download()
-    path, ext = os.path.splitext(dl)
-    file_name = path + '.webm'
-    dl = os.rename(dl, file_name)
-    return os.path.join("downloads", file_name)
+    ydl.download([url])
+    return path.join("downloads", f"{info['id']}.{info['ext']}") 
