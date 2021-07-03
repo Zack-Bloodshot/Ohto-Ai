@@ -87,7 +87,7 @@ async def remauth(_, message: Message):
       meme = False
     text = "{} was unauthorized in {}"
     if not meme == False:
-      kek = mention(meme.first_name, meme.id)
+      kek = mention(meme.user['first_name'], user)
       text.format(kek, message.chat.title)
       await message.reply(text) 
     else:
