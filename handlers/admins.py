@@ -88,11 +88,11 @@ async def remauth(_, message: Message):
     text = "{} was unauthorized in {}"
     if not meme == False:
       kek = mention(meme.user['first_name'], user)
-      text.format(kek, message.chat.title)
+      text = text.format(kek, message.chat.title)
       await message.reply(text) 
     else:
       hek = f"`{user}` (I hadn't met this user in pm)"
-      text.format(hek, message.chat.title)
+      text= text.format(hek, message.chat.title)
       await message.reply(text)
   else: 
     return await message.reply("This user is already not authorized..")
