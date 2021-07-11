@@ -57,7 +57,7 @@ async def que(client: Client, message: Message):
   count = 0
   if len(why) >= 1:
     for i in why:
-      tex +=  "•" 
+      tex +=  str(count)
       tex += i 
       if i == why[0]:
         tex += "`(playin now)`"
