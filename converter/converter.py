@@ -23,7 +23,7 @@ async def convert(file_path: str) -> str:
       acodec='pcm_s16le',
       ac=2,
       ar='48k',
-      oglevell='error'
+      loglevel='error'
     ).overwrite_output().run() 
     os.remove(file_path)
     return out
