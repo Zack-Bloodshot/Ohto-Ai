@@ -1,5 +1,5 @@
 from pyrogram import Client
-from pyrogram import MAX_CHANNEL_ID
+from pyrogram.utils import MAX_CHANNEL_ID
 from pytgcalls import GroupCallFactory
 from handlers.play import quu, send_now_playing
 import config
