@@ -12,21 +12,21 @@ quu = {}
 GROUP_CALL = {}
 
 class Music(object):
-  def __init__(self):
-    self.group_call = GroupCallFactory(client, GroupCallFactory.MTPROTO_CLIENT_TYPE.PYROGRAM).get_file_group_call()
     
-  async def call(self, chat_id):
+  async def call(chat_id):
     if chat_id in GROUP_CALL:
       return GROUP_CALL[chat_id]
     else:
-      gp = await self.group_call.start(chat_id)
+      gp = GroupCallFactory(client).get_file_group_call()
+      await gp.start(chat_id)
       GROUP_CALL[chat_id] = gp
-      return gp 
+      return gp
   
-  async def leave(self, chat_id):
+  async def leave(chat_id):
     if chat_id in GROUP_CALL:
-      self.group_call.input_filename = ''
-      await self.group_call.stop()
+      group_call = GROUP_CALL[chat_id]
+      await group_call.stop()
+      GROUP_CALL.pop(chat_id)
 
 mp = Music()
 
