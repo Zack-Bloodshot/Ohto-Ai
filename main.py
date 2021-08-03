@@ -1,9 +1,12 @@
 from pyrogram import Client as Bot
 from pyrogram import idle
-import logging 
+import logging
+import config
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID, SESSION_NAME
 from Summon.summon import temo
 import time 
+
+client = Bot(config.SESSION_NAME, config.API_ID, config.API_HASH)
 
 bot = Bot(
     ":memory:",
@@ -20,6 +23,7 @@ logger = logging.getLogger('__name__')
 
 print("Ohto Ai: Starting.....!!!")
 
+client.start()
 bot.start()
 idle()
 bot.stop()
