@@ -255,7 +255,11 @@ async def play(_, message: Message):
 
     if sql.is_call(message.chat.id):
         global quu
-        quu[message.chat.id].append(ruuta)
+        try:
+          quu[message.chat.id].append(ruuta)
+        except Exception:
+          sql.set_off(message.chat.id)
+          await message.reply_text('Ahk! sorry, try again!')
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
         await m.delete()
         m = await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
