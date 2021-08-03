@@ -30,7 +30,7 @@ class Music(object):
 mp = Music()
 
 @mp.group_call.on_playout_ended
-async fef on_stream_end(context):
+async def on_stream_end(context):
     chat_id = MAX_CHANNEL_ID - context.full_chat.id
     queues.task_done(chat_id)
 
