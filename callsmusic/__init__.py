@@ -1,2 +1,2 @@
-from .callsmusic import mp, run
+from .callsmusic import quu, mp, run
 from . import queues
