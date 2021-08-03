@@ -22,6 +22,6 @@ print("Ohto Ai: Starting.....!!!")
 
 bot.start()
 idle()
-#bot.stop()
+bot.stop()
 
 #bot.send_message(int(OWNER_ID), "Im onlime")

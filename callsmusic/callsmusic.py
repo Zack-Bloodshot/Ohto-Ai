@@ -4,10 +4,11 @@ from pytgcalls import GroupCallFactory
 import config
 from . import queues
 from sql import calls as sql
+import asyncio
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 quu = {} 
-
+loop = asyncio.get_event_loop()
 GROUP_CALL = {}
 
 class Music(object):
@@ -46,4 +47,4 @@ async def on_stream_end(context):
         except Exception as e:
           print(e)
 
-client.start()
+loop.run_until_complete(client.start())
