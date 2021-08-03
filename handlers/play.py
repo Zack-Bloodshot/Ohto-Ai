@@ -267,7 +267,7 @@ async def play(_, message: Message):
         except Exception as e:
           print(e)
           await m.delete()
-          await message.reply("Looks like the group vc call is not on")
+          await message.reply(e)
           return 
         sql.set_on(message.chat.id)
         await m.delete()
