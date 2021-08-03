@@ -11,7 +11,7 @@ quu = {}
 
 GROUP_CALL = {}
 
-async def on_stream_end(context):
+async def on_stream_end(context, *args):
     chat_id = MAX_CHANNEL_ID - context.full_chat.id
     queues.task_done(chat_id)
 
