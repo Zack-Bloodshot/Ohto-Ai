@@ -47,4 +47,4 @@ async def on_stream_end(context):
         except Exception as e:
           print(e)
 
-run = client.run()
+run = client.run
