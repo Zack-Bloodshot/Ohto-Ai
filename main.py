@@ -21,9 +21,9 @@ logger = logging.getLogger('__name__')
 
 print("Ohto Ai: Starting.....!!!")
 
-bot.start()
 client.start()
-idle()
-bot.stop()
+bot.start()
+#idle()
+#bot.stop()
 
 #bot.send_message(int(OWNER_ID), "Im onlime")
