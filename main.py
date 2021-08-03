@@ -1,4 +1,5 @@
 from pyrogram import Client as Bot
+from callsmusic import run
 from pyrogram import idle
 import logging
 import config
@@ -9,7 +10,6 @@ import asyncio
 
 loop = asyncio.get_event_loop()
 
-client = Bot(config.SESSION_NAME, config.API_ID, config.API_HASH)
 
 bot = Bot(
     ":memory:",
@@ -26,8 +26,8 @@ logger = logging.getLogger('__name__')
 
 print("Ohto Ai: Starting.....!!!")
 
-client.start()
 bot.start()
+run()
 #loop.run_until_complete(idle())
 #bot.stop()
 

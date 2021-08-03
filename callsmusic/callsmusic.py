@@ -5,16 +5,15 @@ import config
 from . import queues
 from sql import calls as sql
 import asyncio
-import main
 
-
+client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 quu = {} 
 
 GROUP_CALL = {}
 
 class Music(object):
   def __init__(self):
-    self.group_call = GroupCallFactory(main.client, GroupCallFactory.MTPROTO_CLIENT_TYPE.PYROGRAM).get_file_group_call()
+    self.group_call = GroupCallFactory(client, GroupCallFactory.MTPROTO_CLIENT_TYPE.PYROGRAM).get_file_group_call()
     
   async def call(self, chat_id):
     if chat_id in GROUP_CALL:
@@ -47,3 +46,5 @@ async def on_stream_end(context):
           send_now_playing(chat_id)
         except Exception as e:
           print(e)
+
+run = client.run()
