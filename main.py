@@ -12,7 +12,7 @@ bot = Bot(
     plugins=dict(root="handlers")
 )
 
-client = Client(SESSION_NAME, API_ID, API_HASH)
+client = Bot(SESSION_NAME, API_ID, API_HASH)
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
 logger = logging.getLogger('__name__') 
