@@ -4,7 +4,7 @@ from sql import auth as sql2
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
-from callsmusic import mp
+from callsmusic import mp, quu
 import callsmusic
 import converter
 from pyrogram.errors import PeerIdInvalid
@@ -21,7 +21,7 @@ from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID
 import time 
 from config import START_TIME as st
 
-quu = {} 
+quu = quu
 
 sleep_time = 3
 

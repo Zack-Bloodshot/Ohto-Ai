@@ -4,14 +4,13 @@ from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message, Chat, User
 import callsmusic
-from callsmusic import mp
+from callsmusic import mp, quu
 from pyrogram.errors import PeerIdInvalid
 from sql import auth as ats
 from config import BOT_NAME as BN
 from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only, authorized_users_only2
-from handlers.play import quu 
 from config import BOT_USERNAME
 from config import PLAY_PIC 
 from config import UBOT_ID as ubot

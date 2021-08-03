@@ -1,12 +1,13 @@
 from pyrogram import Client
 from pyrogram.utils import MAX_CHANNEL_ID
 from pytgcalls import GroupCallFactory
-from handlers.play import quu, send_now_playing
 import config
 from . import queues
 from sql import calls as sql
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
+
+quu = {} 
 
 GROUP_CALL = {}
 
