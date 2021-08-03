@@ -23,4 +23,4 @@ print("Ohto Ai: Starting.....!!!")
 bot.start()
 client.start()
 
-bot.send_message(int(OWNER_ID), "Im onlime")
+#bot.send_message(int(OWNER_ID), "Im onlime")
