@@ -11,26 +11,6 @@ quu = {}
 
 GROUP_CALL = {}
 
-class Music(object):
-    
-  async def call(chat_id):
-    if chat_id in GROUP_CALL:
-      return GROUP_CALL[chat_id]
-    else:
-      gp = GroupCallFactory(client).get_file_group_call()
-      await gp.start(chat_id)
-      GROUP_CALL[chat_id] = gp
-      return gp
-  
-  async def leave(chat_id):
-    if chat_id in GROUP_CALL:
-      group_call = GROUP_CALL[chat_id]
-      await group_call.stop()
-      GROUP_CALL.pop(chat_id)
-
-mp = Music()
-
-@mp.group_call.on_playout_ended
 async def on_stream_end(context):
     chat_id = MAX_CHANNEL_ID - context.full_chat.id
     queues.task_done(chat_id)
@@ -46,5 +26,32 @@ async def on_stream_end(context):
           send_now_playing(chat_id)
         except Exception as e:
           print(e)
+          
+def crazy(chat_id):
+  if chat_id in GROUP_CALL:
+    gp = GROUP_CALL[chat_id]
+    gp.on_playout_ended(on_stream_end)
+
+class Music(object):
+    
+  async def call(chat_id):
+    if chat_id in GROUP_CALL:
+      return GROUP_CALL[chat_id]
+    else:
+      gp = GroupCallFactory(client).get_file_group_call()
+      await gp.start(chat_id)
+      GROUP_CALL[chat_id] = gp
+      crazy(chat_id)
+      return gp
+  
+  async def leave(chat_id):
+    if chat_id in GROUP_CALL:
+      group_call = GROUP_CALL[chat_id]
+      await group_call.stop()
+      GROUP_CALL.pop(chat_id)
+
+mp = Music()
+
+
 
 run = client.run
