@@ -4,7 +4,10 @@ import logging
 import config
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID, SESSION_NAME
 from Summon.summon import temo
-import time 
+import time
+import asyncio
+
+loop = asyncio.get_event_loop()
 
 client = Bot(config.SESSION_NAME, config.API_ID, config.API_HASH)
 
@@ -24,8 +27,8 @@ logger = logging.getLogger('__name__')
 print("Ohto Ai: Starting.....!!!")
 
 bot.start()
-client.run()
-#idle()
+client.start()
+loop.run_until_completl(idle())
 #bot.stop()
 
 #bot.send_message(int(OWNER_ID), "Im onlime")
