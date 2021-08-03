@@ -162,7 +162,7 @@ def erro(mid, fp, ru):
 @authorized_users_only2
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
-    group_call = mp.call(message.chat.id)
+    group_call = await mp.call(message.chat.id)
     req_name = f"Requested By: {message.from_user.first_name}\n"
     req_user = f"Requested By: [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n"
     url = get_url(message)
@@ -264,8 +264,8 @@ async def play(_, message: Message):
     else:
         try: 
           group_call.input_filename = file_path
-        except Exception:
-          print(Exception)
+        except Exception as e:
+          print(e)
           await m.delete()
           await message.reply("Looks like the group vc call is not on")
           return 
