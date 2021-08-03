@@ -16,13 +16,14 @@ async def convert(file_path: str) -> str:
     if path.isfile(out):
         return out
 
-    ffmpeg.input(file_path).output(
-                out,
-                format='s16le',
-                acodec='pcm_s16le',
-                ac=2,
-                ar='48k',
-                loglevel='error'
-            ).overwrite_output().run() 
+    ffmpeg.input(file_path
+    ).output(
+      out,
+      format='s16le',
+      acodec='pcm_s16le',
+      ac=2,
+      ar='48k',
+      oglevell='error'
+    ).overwrite_output().run() 
     os.remove(file_path)
     return out
