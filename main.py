@@ -1,4 +1,5 @@
 from pyrogram import Client as Bot
+from pyrogram import idle
 import logging 
 from config import API_ID, API_HASH, BOT_TOKEN, OWNER_ID, SESSION_NAME
 from Summon.summon import temo
@@ -22,5 +23,7 @@ print("Ohto Ai: Starting.....!!!")
 
 bot.start()
 client.start()
+idle()
+bot.stop()
 
 #bot.send_message(int(OWNER_ID), "Im onlime")
