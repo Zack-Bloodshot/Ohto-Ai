@@ -5,6 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
 import callsmusic
+from callsmusic import mp
 import converter
 from pyrogram.errors import PeerIdInvalid
 from downloaders import youtube
@@ -156,11 +157,12 @@ def erro(mid, fp, ru):
   return True
  
 
-@Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}", "playlist", f"playlist@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only2
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
+    group_call = mp.call(message.chat.id)
     req_name = f"Requested By: {message.from_user.first_name}\n"
     req_user = f"Requested By: [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n"
     url = get_url(message)
@@ -253,17 +255,7 @@ async def play(_, message: Message):
 
     if sql.is_call(message.chat.id):
         global quu
-        try:
-          quu[message.chat.id].append(ruuta)
-        except KeyError:
-          m = erro(message.chat.id, file_path, ruuta)
-          if m is True:
-            await m.delete()
-            await message.reply(text, reply_markup = markup)
-            return 
-          else: 
-            await message.reply("Ahh!! Looks like some error occurred, check if vc is on")
-            return
+        quu[message.chat.id].append(ruuta)
         text += f"**\nQueued at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !**"
         await m.delete()
         m = await message.reply_text(text, parse_mode = "md", reply_markup = markup) 
@@ -271,7 +263,7 @@ async def play(_, message: Message):
         await m.delete() 
     else:
         try: 
-          callsmusic.pytgcalls.join_group_call(message.chat.id, file_path, 48000)
+          group_call.input_filename = file_path
         except Exception:
           await m.delete()
           await message.reply("Looks like the group vc call is not on")

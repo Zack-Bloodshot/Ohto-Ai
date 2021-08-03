@@ -4,6 +4,7 @@ from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message, Chat, User
 import callsmusic
+from callsmusic import mp
 from pyrogram.errors import PeerIdInvalid
 from sql import auth as ats
 from config import BOT_NAME as BN
@@ -128,12 +129,12 @@ async def listauth(chat: Chat, message: Message):
 async def pause(_, message: Message):
     if not sql.is_call(message.chat.id):
       return await message.reply("Nuthin playin.... ")
-    if callsmusic.pytgcalls.active_calls[message.chat.id] == 'paused':
-        await message.reply_text("Nuthin playing already right now..", parse_mode ="md")
-    else:
-        callsmusic.pytgcalls.pause_stream(message.chat.id)
-        await message.reply_text("Paused.. hek....", parse_mode = "md")
-
+    group_call = await mp.call(message.chat.id)
+    try:
+      group_call.pause_playout()
+      await message.reply_text('Paused! hek!')
+    except Exception:
+      await message.reply_text('Could not!!')
 
 @Client.on_message(filters.command(["resume", f"resume@{BOT_USERNAME}"]) & other_filters)
 @errors
@@ -141,11 +142,12 @@ async def pause(_, message: Message):
 async def resume(_, message: Message):
     if not sql.is_call(message.chat.id):
       return await message.reply("Nuthin playin...")
-    if callsmusic.pytgcalls.active_calls[message.chat.id] == 'playing':
-        await message.reply_text("Already playing!!", parse_mode = "md")
-    else:
-        callsmusic.pytgcalls.resume_stream(message.chat.id)
-        await message.reply_text("Ahh Party On Again.... yay!!", parse_mode = "md")
+    group_call = await mp.call(message.chat.id)
+    try:
+      group_call.resume_playout()
+      await message.reply_text('Resumed!')
+    except Exception:
+      await message.reply_text('Could Not!')
 
 
 @Client.on_message(filters.command(["stop", f"stop@{BOT_USERNAME}"]) & other_filters)
@@ -160,7 +162,7 @@ async def stop(_, message: Message):
         except QueueEmpty: 
           pass 
         quu[message.chat.id] = []
-        callsmusic.pytgcalls.leave_group_call(message.chat.id)
+        await mp.leave(message.chat.id)
         sql.set_off(message.chat.id)
         await message.reply_text(f"Ahh, its peaceful now, Byee[...]({PLAY_PIC})", parse_mode = "md")
 
@@ -173,7 +175,7 @@ async def skip(_, message: Message):
       return await message.reply("Baka nothing to skip..!")
     if callsmusic.queues.is_empty(message.chat.id):
       try:
-        callsmusic.pytgcalls.leave_group_call(message.chat.id) 
+        await mp.leave(message.chat.id)
         sql.set_off(message.chat.id)
       except Exception:
         pass
@@ -190,15 +192,13 @@ async def skip(_, message: Message):
           pass
         if callsmusic.queues.is_empty(message.chat.id):
             nex_song = " "
-            callsmusic.pytgcalls.leave_group_call(message.chat.id)
+            await mp.leave(message.chat.id)
             sql.set_off(message.chat.id)
         else:
             try:
               nex_song = "**Now playin: " + why[0] + "**"
             except IndexError:
               nex_song = " "
-            callsmusic.pytgcalls.change_stream(
-                message.chat.id,
-                callsmusic.queues.get(message.chat.id)["file_path"])
-
+            gp = await mp.call(message.chat.id)
+            gp.input_filename = callsmusic.queues.get(message.chat.id)["file_path"]
         await message.reply_text(f"Skipped....!\n{nex_song}", parse_mode = "md")
