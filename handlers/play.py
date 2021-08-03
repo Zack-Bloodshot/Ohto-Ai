@@ -265,6 +265,7 @@ async def play(_, message: Message):
         try: 
           group_call.input_filename = file_path
         except Exception:
+          print(Exception)
           await m.delete()
           await message.reply("Looks like the group vc call is not on")
           return 
