@@ -34,7 +34,7 @@ def crazy(chat_id):
 
 class Music(object):
     
-  async def call(chat_id):
+  async def call(self, chat_id):
     if chat_id in GROUP_CALL:
       return GROUP_CALL[chat_id]
     else:
@@ -44,7 +44,7 @@ class Music(object):
       crazy(chat_id)
       return gp
   
-  async def leave(chat_id):
+  async def leave(self, chat_id):
     if chat_id in GROUP_CALL:
       group_call = GROUP_CALL[chat_id]
       await group_call.stop()
