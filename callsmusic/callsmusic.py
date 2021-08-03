@@ -21,7 +21,7 @@ async def on_stream_end(context, *args):
         
     else:
         quu[chat_id].pop(0)
-        mp.group_call.input_filename = queues.get(chat_id)["file_path"]
+        GROUP_CALL[chat_id].input_filename = queues.get(chat_id)["file_path"]
         try:
           send_now_playing(chat_id)
         except Exception as e:
