@@ -13,7 +13,7 @@ async def convert(file_path: str) -> str:
     out = os.path.basename(out)
     out = os.path.join("raw_files", out)
 
-    if path.isfile(out):
+    if os.path.isfile(out):
         return out
 
     ffmpeg.input(file_path
