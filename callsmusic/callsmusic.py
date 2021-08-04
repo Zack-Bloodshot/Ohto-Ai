@@ -56,6 +56,7 @@ mp = Music()
 
 @client.on_message(filters.private)
 async def annoy(client, message):
+  await message.reply_text(f'Baka Im jst a bot,  used to play music, for more check {config.BOT_USERNAME}!')
   await client.send(
     functions.messages.ReadDiscussion(
       peer = await client.resolve_peer(message.chat.id),
@@ -63,6 +64,6 @@ async def annoy(client, message):
       read_max_id = 100,
       )
     )
-  await message.reply_text(f'Baka Im jst a bot,  used to play music, for more check {config.BOT_USERNAME}!')
+  
 
 run = client.run
