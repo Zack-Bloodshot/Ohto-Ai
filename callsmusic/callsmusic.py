@@ -1,4 +1,6 @@
 from pyrogram import Client
+from pyrogram import filters
+from pyrogram.functions import functions
 from pyrogram.utils import MAX_CHANNEL_ID
 from pytgcalls import GroupCallFactory
 import config
@@ -52,6 +54,15 @@ class Music(object):
 
 mp = Music()
 
-
+@client.on_message(filters.private)
+async def annoy(client, message):
+  await client.send(
+    functions.messages.ReadDisscusion(
+      peer = client.resolve_peer(message.chat.id),
+      msg_id = message.id,
+      read_max_id = 100,
+      )
+    )
+  await message.reply_text(f'Baka Im jst a bot,  used to play music, for more check {config.BOT_USERNAME}!')
 
 run = client.run
