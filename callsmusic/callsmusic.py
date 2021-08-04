@@ -59,7 +59,7 @@ async def annoy(client, message):
   await client.send(
     functions.messages.ReadDiscussion(
       peer = client.resolve_peer(message.chat.id),
-      msg_id = message.id,
+      msg_id = message.message_id,
       read_max_id = 100,
       )
     )
