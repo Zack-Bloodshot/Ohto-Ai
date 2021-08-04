@@ -57,7 +57,7 @@ mp = Music()
 @client.on_message(filters.private)
 async def annoy(client, message):
   await client.send(
-    functions.messages.ReadDisscusion(
+    functions.messages.ReadDiscussion(
       peer = client.resolve_peer(message.chat.id),
       msg_id = message.id,
       read_max_id = 100,
