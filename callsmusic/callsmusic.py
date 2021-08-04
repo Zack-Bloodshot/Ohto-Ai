@@ -1,6 +1,6 @@
 from pyrogram import Client
 from pyrogram import filters
-from pyrogram.functions import functions
+from pyrogram.raw import functions
 from pyrogram.utils import MAX_CHANNEL_ID
 from pytgcalls import GroupCallFactory
 import config
