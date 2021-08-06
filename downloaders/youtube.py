@@ -11,6 +11,7 @@ ydl_opts = {
     "geo-bypass": True,
     "nocheckcertificate": True,
     "outtmpl": "downloads/%(id)s.%(ext)s",
+    "forceip": 4,
 }
 ydl = YoutubeDL(ydl_opts)
 
