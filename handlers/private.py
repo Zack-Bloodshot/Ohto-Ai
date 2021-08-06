@@ -49,7 +49,7 @@ async def a(client, message: Message):
       "geo-bypass": True,
       "nocheckcertificate": True,
       "outtmpl": "%(id)s.mp3",
-      'proxy': 'socks5://127.0.0.1:1080',
+      'forceip' : 4,
     }
     try:
         results = []
