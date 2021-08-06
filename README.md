@@ -1,6 +1,8 @@
-<h1 align="centre">Ohto Ai Plays</h1>
+# Ohto Ai Plays [![Mentioned in Awesome Telegram Calls](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/tgcalls/awesome-tgcalls)
 
 <img src='https://telegra.ph/file/ff0b5f2df191253feb199.jpg'>
+
+Can be found on Telegram [@OhtoAiPlaysRoBot](https://t.me/OhtoAiPlaysRoBot) which is limited... and [@NezukoPlaysRoBot](https://t.me/NezukoPlaysRoBot) which is open! (but on free dynos....)
 
 ## Requirements 📝
 - `API_ID` :  API_ID as from [telegram apps](https://my.telegram.org/)
