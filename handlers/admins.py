@@ -7,6 +7,7 @@ import callsmusic
 from callsmusic import mp, quu
 from callsmusic import client as player
 from pyrogram.errors import PeerIdInvalid
+from pyrogram.errors import exceptions as pexc
 from sql import auth as ats
 from config import BOT_NAME as BN
 from config import SUDO_USERS
@@ -25,14 +26,17 @@ async def summon(client: Client, message: Message):
   if not SUMMONER == 'False':
     await message.reply_text('Sorry, this is a private music bot!')
     return
-  m = message.reply("Yea well, waitto, will take some time!")
+  m = await message.reply_text("Yea well, waitto, will take some time!")
   try:
     hek = message.chat.username
     if  hek == None:
       hek = await client.export_chat_invite_link(message.chat.id)
-  except BaseExceptiom:
+  except BaseException:
     return await message.reply_text('Ahk! Looks like im not admin and the chat is private!')
-  await player.join_chat(hek)
+  try:
+    await player.join_chat(hek)
+  except pexc.bad_request_400.UserAlreadyParticipant:
+    return await m.edit('Userbot is here!')
   await m.edit("Summon Successfull! Now enjoy playing!")
 
 @Client.on_message(filters.command(["ping", f"ping@{BOT_USERNAME}"]))
