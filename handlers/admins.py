@@ -5,6 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, Chat, User
 import callsmusic
 from callsmusic import mp, quu
+from callsmusic import client as player
 from pyrogram.errors import PeerIdInvalid
 from sql import auth as ats
 from config import BOT_NAME as BN
@@ -12,7 +13,7 @@ from config import SUDO_USERS
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only, authorized_users_only2
 from config import BOT_USERNAME
-from config import PLAY_PIC 
+from config import PLAY_PIC, SUMMONER
 from config import UBOT_ID as ubot
 
 def mention(name, userid):
@@ -21,8 +22,17 @@ def mention(name, userid):
 @Client.on_message(filters.command(["summon", f"summon@{BOT_USERNAME}"]))
 @authorized_users_only2
 async def summon(client: Client, message: Message): 
+  if not SUMMONER == 'False':
+    await message.reply_text('Sorry, this is a private music bot!')
+    return
   m = message.reply("Yea well, waitto, will take some time!")
-  await joinchatto(int(message.chat.id))
+  try:
+    hek = message.chat.username
+    if  hek == None:
+      hek = await client.export_chat_invite_link(message.chat.id)
+  except BaseExceptiom:
+    return await message.reply_text('Ahk! Looks like im not admin and the chat is private!')
+  await player.join_chat(hek)
   await m.edit("Summon Successfull! Now enjoy playing!")
 
 @Client.on_message(filters.command(["ping", f"ping@{BOT_USERNAME}"]))
@@ -46,7 +56,7 @@ async def res(_, message: Message):
     sql.set_off(message.chat.id)
   quu[message.chat.id] = []
   try: 
-    callsmusic.pytgcalls.leave_group_call(message.chat.id) 
+    await mp.leave(message.chat.id)
   except Exception:
     pass
   await message.reply("**Reset successful..!!!**")
