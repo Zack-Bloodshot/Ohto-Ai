@@ -27,18 +27,16 @@ I recommend deploying on railways, because it lags relatively less than heroku (
 <summary>Steps to Deploy on Railway</summary>
 <ol>
 <li>Fork This Repo, to your github account</li>
-<li>Create a account at <a href='https://railway.app'>Railway</a>
-<li>Create an app at railway with a postgresql addon
-<img src='https://telegra.ph/file/eabde0bcef4f0337302ff.jpg'></li>
+<li>Create an account at <a href='https://railway.app'>Railway</a>
+<li>Create an app at railway with a postgresql addon</li>
 <li>Gather all the requirements mentioned above in the following manner in your notes app, and then after finishing copy the whole thing to your clipboard
-```
-API_ID=Value
+<code>API_ID=Value
 API_HASH=Value
 SESSION_NAME=VALUE
 and etc....
-```
+</code>
 </li>
-<li>Go to railway, to the app you created, and then go to the tab `variables`</li>
+<li>Go to railway, to the app you created, and then go to the tab <code>variables</code></li>
 <li>Click on bulk import, a dialogue box would open up, now paste the whole copied vars that we copied in step 4</li>
 <li>Now go to the Deployment tab and then connect your github</li>
 <li>After connecting your github, connect the forked repo that you forked from me</li>
