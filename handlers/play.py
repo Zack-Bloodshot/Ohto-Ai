@@ -19,6 +19,7 @@ from helpers.errors import DurationLimitError
 from helpers.gets import get_url, get_file_name
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 import time 
+import config
 from config import START_TIME as st
 
 quu = quu
@@ -30,7 +31,10 @@ sleep_time = 3
 async def selfwelc(client: Client, message: Message):
   for user in message.new_chat_members:
     if user.id == int(UBOT_ID):
-      await message.reply_text("Demmm kek, a new adventure, can't wait to tell Abhi-sama")
+      if config.SUMMONER = 'False':
+        await message.reply_text("Demmm kek, a new adventure, can't wait to tell Abhi-sama")
+      else:
+        await message. reply_text("Ahk sorry, imma private bot! Deploy one!")
       chat_name = message.chat.title
       get = await client.get_chat(message.chat.id)
       if get.username:
