@@ -1,8 +1,10 @@
-# Ohto Ai Plays [![Mentioned in Awesome Telegram Calls](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/tgcalls/awesome-tgcalls)
+<h1>Ohto Ai Plays <a href='https://github.com/tgcalls/awesome-tgcalls'><img src='https://awesome.re/mentioned-badge-flat.svg'></a></h1>
 
+<p align='center'>
 <img src="https://i.ibb.co/R0Vh3rW/IMG-20210808-131839-removebg-preview.png" alt="ohto-ai-kawaaii-pic" border="0" widht='223.5' height='176'>
+</p>
 
-Can be found on Telegram as [@OhtoAiPlaysRoBot](https://t.me/OhtoAiPlaysRoBot) which is limited... and [@NezukoPlaysRoBot](https://t.me/NezukoPlaysRoBot) which is open! (but on free dynos....)
+An awesome, deployable, simple, non spammy, auth-system enabled, multi-chat music bot!
 
 ---
 
