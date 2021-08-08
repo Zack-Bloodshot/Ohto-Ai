@@ -31,7 +31,7 @@ sleep_time = 3
 async def selfwelc(client: Client, message: Message):
   for user in message.new_chat_members:
     if user.id == int(UBOT_ID):
-      if config.SUMMONER = 'False':
+      if config.SUMMONER == 'False':
         await message.reply_text("Demmm kek, a new adventure, can't wait to tell Abhi-sama")
       else:
         await message. reply_text("Ahk sorry, imma private bot! Deploy one!")
