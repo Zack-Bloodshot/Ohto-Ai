@@ -30,11 +30,7 @@ I recommend deploying on railways, because it lags relatively less than heroku (
 <li>Create an account at <a href='https://railway.app'>Railway</a>
 <li>Create an app at railway with a postgresql addon</li>
 <li>Gather all the requirements mentioned above in the following manner in your notes app, and then after finishing copy the whole thing to your clipboard
-<code>API_ID=Value
-API_HASH=Value
-SESSION_NAME=VALUE
-and etc....
-</code>
+<img src='https://telegra.ph/file/4c45814b6ec4e96b686a2.jpg'>
 </li>
 <li>Go to railway, to the app you created, and then go to the tab <code>variables</code></li>
 <li>Click on bulk import, a dialogue box would open up, now paste the whole copied vars that we copied in step 4</li>
