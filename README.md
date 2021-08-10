@@ -11,7 +11,7 @@ An awesome, deployable, simple, non spammy, auth-system enabled, multi-chat musi
 ## Requirements 📝
 - `API_ID` :  API_ID as from [telegram apps](https://my.telegram.org/)
 - `API_HASH` :  API_HASH as from [telegram apps](https://my.telegram.org/)
-- `STRING_NAME` :  Make a string session of the alternate account that will be used by the bot to play music, (this account will not be able to hear music) [here](https://repl.it/@subinps/getStringName)
+- `SESSION_NAME` :  Make a string session of the alternate account that will be used by the bot to play music, (this account will not be able to hear music) [here](https://repl.it/@subinps/getStringName)
 - `BOT_TOKEN` :  Make a Bot from [@Botfather](https://t.me/botfather) and fill it's bot token.
 - `BOT_USERNAME` : Your bot username, to help create handlers.
 - `OWNER_ID` : Needed sometimes, so fill it.
