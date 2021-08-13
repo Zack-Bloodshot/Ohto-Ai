@@ -6,6 +6,7 @@ from config import BOT_NAME as bn, DURATION_LIMIT, PROXY
 from helpers.errors import DurationLimitError
 
 using_proxy = False
+
 if PROXY:
     ydl_opts = {
       "format": "bestaudio",
@@ -26,6 +27,7 @@ else:
       "outtmpl": "downloads/%(id)s.%(ext)s",
       "forceip": 4,
   }
+
 ydl = YoutubeDL(ydl_opts)
 
 
