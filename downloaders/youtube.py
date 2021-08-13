@@ -55,7 +55,7 @@ def download(url: str) -> str:
             }
             using_proxy=False
             ydl = YoutubeDL(ydl_opts)
-            ydl.downloads([url])
+            ydl.download([url])
           else:
             ydl_opts = {
               "format": "bestaudio",
@@ -68,7 +68,7 @@ def download(url: str) -> str:
             }
             using_proxy=True 
             ydl = YoutubeDL(ydl_opts)
-            ydl.downloads([url])
+            ydl.download([url])
         else:
           ydl.download([url])
     return path.join("downloads", f"{info['id']}.{info['ext']}") 

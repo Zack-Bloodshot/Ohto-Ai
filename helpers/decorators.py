@@ -5,6 +5,7 @@ from pyrogram.types import Message
 from helpers.admins import get_administrators
 from config import SUDO_USERS
 from sql import auth as sql
+import sys, os
 
 
 def errors(func: Callable) -> Callable:
@@ -15,7 +16,11 @@ def errors(func: Callable) -> Callable:
             if type(e).__name__ == "DownloadError":
               await message.reply_text("Ahh sorry looks like i am not being able to download..., please retry again or use telegram files..")
             else: 
-              await message.reply(f"{type(e).__name__}: {e}")
+              exc_type, exc_obj, exc_tb = sys.exc_info()
+              fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+              print(exc_type, fname, exc_tb.tb_lineno)
+              msg = f'{exc_type}:\n{e}\nIn file {fname} line {exc_tb.tb_lineno}'
+              await message.reply(msg)
               print(e)
 
     return decorator
