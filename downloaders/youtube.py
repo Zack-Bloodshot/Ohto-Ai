@@ -28,11 +28,11 @@ else:
       "forceip": 4,
   }
 
-ydl = YoutubeDL(ydl_opts)
+yd = YoutubeDL(ydl_opts)
 
 
 def download(url: str) -> str:
-    info = ydl.extract_info(url, False)
+    info = yd.extract_info(url, False)
     duration = round(info['duration'] / 60)
 
     if duration > DURATION_LIMIT:
@@ -40,7 +40,7 @@ def download(url: str) -> str:
             f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
         )
     try:
-      ydl.download([url])
+      yd.download([url])
     except Exception as e:
       if type(e).__name__ == "DownloadError":
         if PROXY:
@@ -54,8 +54,8 @@ def download(url: str) -> str:
               "forceip": 4,
             }
             using_proxy=False
-            ydl = YoutubeDL(ydl_opts)
-            ydl.download([url])
+            yd = YoutubeDL(ydl_opts)
+            yd.download([url])
           else:
             ydl_opts = {
               "format": "bestaudio",
@@ -67,8 +67,8 @@ def download(url: str) -> str:
               "proxy:": f'socks5://{PROXY}'
             }
             using_proxy=True 
-            ydl = YoutubeDL(ydl_opts)
-            ydl.download([url])
+            yd = YoutubeDL(ydl_opts)
+            yd.download([url])
         else:
-          ydl.download([url])
+          yd.download([url])
     return path.join("downloads", f"{info['id']}.{info['ext']}") 
