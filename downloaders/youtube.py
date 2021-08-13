@@ -2,17 +2,28 @@ from os import path
 import os
 from youtube_dl import YoutubeDL
 from pytube import YouTube as YT
-from config import BOT_NAME as bn, DURATION_LIMIT
+from config import BOT_NAME as bn, DURATION_LIMIT, PROXY
 from helpers.errors import DurationLimitError
 
-ydl_opts = {
+if PROXY:
+  ydl_opts = {
     "format": "bestaudio",
     "addmetadata": True,
     "geo-bypass": True,
     "nocheckcertificate": True,
     "outtmpl": "downloads/%(id)s.%(ext)s",
     "forceip": 4,
-}
+    "proxy:": f'socks5://{PROXY}'
+  }
+else:
+  ydl_opts = {
+      "format": "bestaudio",
+      "addmetadata": True,
+      "geo-bypass": True,
+      "nocheckcertificate": True,
+      "outtmpl": "downloads/%(id)s.%(ext)s",
+      "forceip": 4,
+  }
 ydl = YoutubeDL(ydl_opts)
 
 
