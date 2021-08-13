@@ -2,8 +2,6 @@ import os
 import asyncio
 import ffmpeg
 
-from helpers.errors import FFmpegReturnCodeError
-
 
 async def convert(file_path: str) -> str:
     out = os.path.basename(file_path)
@@ -15,15 +13,24 @@ async def convert(file_path: str) -> str:
 
     if os.path.isfile(out):
         return out
-
-    ffmpeg.input(file_path
-    ).output(
-      out,
-      format='s16le',
-      acodec='pcm_s16le',
-      ac=2,
-      ar='48k',
-      loglevel='error'
-    ).overwrite_output().run() 
+    #non async ffmpeg
+    #ffmpeg.input(file_path
+    #).output(
+    #  out,
+    #  format='s16le',
+    #  acodec='pcm_s16le',
+    #  ac=2,
+    #  ar='48k',
+    #  loglevel='error'
+    #).overwrite_output().run() 
+    #os.remove(file_path)
+    
+    #async ffmpeg
+    proc = await asyncio.create_subprocess_shell(
+        f"ffmpeg -y -i {file_path} -f s16le -ac 2 -ar 48000 -acodec pcm_s16le {out}",
+        asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
+    await proc.communicate()
     os.remove(file_path)
     return out
