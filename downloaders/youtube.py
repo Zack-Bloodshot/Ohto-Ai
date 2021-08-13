@@ -32,6 +32,7 @@ yd = YoutubeDL(ydl_opts)
 
 
 def download(url: str) -> str:
+    global yd
     info = yd.extract_info(url, False)
     duration = round(info['duration'] / 60)
 
