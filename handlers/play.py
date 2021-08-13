@@ -162,7 +162,6 @@ def erro(mid, fp, ru):
  
 
 @Client.on_message(filters.command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
-@errors
 @authorized_users_only2
 async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
