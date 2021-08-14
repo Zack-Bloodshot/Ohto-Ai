@@ -7,7 +7,7 @@ from youtube_search import YoutubeSearch
 from callsmusic import mp, quu
 import callsmusic
 import converter
-from pyrogram.errors import PeerIdInvalid
+from pyrogram.errors import PeerIdInvalid, ChannelInvalid
 from pyrogram.errors import exceptions
 from downloaders import youtube
 from pyrogram.types import (InlineKeyboardMarkup, InlineKeyboardButton)
@@ -169,12 +169,11 @@ async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
     try:
       group_call = await mp.call(message.chat.id)
-    except Exception as e:
-      if e == 'Chat without a voice chat':
+    except RuntimeError:
         return await message.reply_text('The vc seems to be off.....')
-      elif e == '[400 CHANNEL_INVALID]: The channel parameter is invalid (caused by "channels.GetChannels")':
+    except ChannelInvalid:
         return await message.reply_text('Seems like my assistant is not in the chat!')
-      else:
+    except Exception as e:
         return await message.reply_text(f'{type(e).__name__}: {e}')
     req_name = f"Requested By: {message.from_user.first_name}\n"
     req_user = f"Requested By: [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n"
