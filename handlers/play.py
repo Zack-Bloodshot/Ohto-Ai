@@ -170,9 +170,9 @@ async def play(_, message: Message):
     try:
       group_call = await mp.call(message.chat.id)
     except Exception as e:
-      if e == RuntimeError:
+      if e == 'RuntimeError: Chat without a voice chat':
         return await message.reply_text('The vc seems to be off.....')
-      elif e == exceptions.bad_request_400.ChannelPrivate:
+      elif e == 'ChannelInvalid: [400 CHANNEL_INVALID]: The channel parameter is invalid (caused by "channels.GetChannels")':
         return await message.reply_text('Seems like my assistant is not in the chat!')
       else:
         return await message.reply_text(f'{type(e).__name__}: {e}')
