@@ -169,8 +169,8 @@ async def play(_, message: Message):
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
     try:
       group_call = await mp.call(message.chat.id)
-    except Exception as e:
-      if e.message == 'RuntimeError: Chat without a voice chat':
+    except Exception as e, ep:
+      if ep.message == 'RuntimeError: Chat without a voice chat':
         return await message.reply_text('The vc seems to be off.....')
       elif e == exceptions.bad_request_400.ChannelPrivate:
         return await message.reply_text('Seems like my assistant is not in the chat!')
