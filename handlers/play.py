@@ -4,7 +4,7 @@ from sql import auth as sql2
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
-from callsmusic import mp, quu
+from callsmusic import mp, quu, block_chat
 import callsmusic
 import converter
 from pyrogram.errors import PeerIdInvalid, ChannelInvalid
@@ -166,6 +166,8 @@ def erro(mid, fp, ru):
 @errors
 @authorized_users_only2
 async def play(_, message: Message):
+    if message.chat.id in block_chat:
+      return await message.reply('Seems like there is a video stream going on...')
     audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
     try:
       group_call = await mp.call(message.chat.id)

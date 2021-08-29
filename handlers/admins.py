@@ -4,7 +4,7 @@ from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message, Chat, User
 import callsmusic
-from callsmusic import mp, quu
+from callsmusic import mp, quu, block_chat
 from callsmusic import client as player
 from pyrogram.errors import PeerIdInvalid
 from pyrogram.errors import exceptions as pexc
@@ -61,6 +61,10 @@ async def res(_, message: Message):
   quu[message.chat.id] = []
   try: 
     await mp.leave(message.chat.id)
+  except Exception:
+    pass
+  try:
+    block_chat.pop(message.chat.id)
   except Exception:
     pass
   await message.reply("**Reset successful..!!!**")
@@ -174,6 +178,10 @@ async def stop(_, message: Message):
           callsmusic.queues.clear(message.chat.id)
         except QueueEmpty: 
           pass 
+        try:
+          block_chat.pop(message.chat.id)
+        except Exception:
+          pass
         quu[message.chat.id] = []
         await mp.leave(message.chat.id)
         sql.set_off(message.chat.id)
@@ -184,6 +192,8 @@ async def stop(_, message: Message):
 @errors
 @authorized_users_only2
 async def skip(_, message: Message):
+    if message.chat.id in block_chat:
+      return await message.reply_text('Cant skip video stream...')
     if not sql.is_call(message.chat.id):
       return await message.reply("Baka nothing to skip..!")
     if callsmusic.queues.is_empty(message.chat.id):

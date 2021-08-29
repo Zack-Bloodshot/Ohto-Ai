@@ -1,6 +1,6 @@
-pyrogram==1.2.9
+git+https://github.com/pyrogram/pyrogram@master
 TgCrypto==1.2.2
-pytgcalls[pyrogram]==2.0.0.dev4
+pytgcalls[pyrogram]==3.0.0.dev6
 python-dotenv
 youtube_dl
 youtube_search_python

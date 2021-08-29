@@ -10,7 +10,7 @@ import asyncio
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 quu = {} 
-
+block_chat = []
 GROUP_CALL = {}
 
 async def on_stream_end(context, *args):
@@ -20,6 +20,10 @@ async def on_stream_end(context, *args):
     if queues.is_empty(chat_id):
         await mp.leave(chat_id)
         sql.set_off(chat_id)
+        try:
+          block_chat.pop(chat_id)
+        except Exception:
+          pass
         
     else:
         quu[chat_id].pop(0)
