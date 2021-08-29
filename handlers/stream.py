@@ -27,8 +27,7 @@ async def stream_vid(client: Client, message: Message):
     return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
   audio_file_name = str(dl).split('.', 1)[0]
-  ext_s = soundex.VideoFileClip(dl)
-  sound_clip = converter.convert(ext_s.audio.write_audiofile(f'{audio_file_name}.mp3'))
+ sound_clip = converter.convert(await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}.wav",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE))
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
@@ -37,6 +36,6 @@ async def stream_vid(client: Client, message: Message):
       return await message.reply_text('Seems like my assistant is not in the chat!')
   except Exception as e:
       return await message.reply_text(f'{type(e).__name__}: {e}')
-  group_call.input_filename = sound_clip
   await group_call.set_video_capture(dl)
+  group_call.input_filename = sound_clip
   block_chat.append(message.chat.id)
