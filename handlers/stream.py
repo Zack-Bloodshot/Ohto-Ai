@@ -27,7 +27,7 @@ async def stream_vid(client: Client, message: Message):
     return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
   audio_file_name = str(dl).split('.', 1)[0]
- sound_clip = converter.convert(await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}.wav",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE))
+  sound_clip = converter.convert(await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}.wav",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE))
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
