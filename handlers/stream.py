@@ -19,9 +19,11 @@ from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID
 @errors
 @authorized_users_only
 async def stream_vid(client: Client, message: Message):
-  video = message.reply_to_message.video if message.reply_to_message else None
+  video = (message.reply_to_message.video or message.reply_to_message.document) if message.reply_to_message else None
   if not video:
-    return await message.reply_text('Reply to a video...')
+    return await message.reply_text('Reply to a file or a video....')
+  if not (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
+    return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
   try:
       group_call = await mp.call(message.chat.id)
