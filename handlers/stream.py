@@ -13,6 +13,7 @@ from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.decorators import authorized_users_only
 from helpers.decorators import authorized_users_only2
+from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 @errors
