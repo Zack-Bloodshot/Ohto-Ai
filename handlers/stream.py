@@ -16,6 +16,7 @@ from helpers.decorators import authorized_users_only2
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 import moviepy.editor as soundex
 import asyncio
+import os
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
@@ -27,6 +28,7 @@ async def stream_vid(client: Client, message: Message):
     return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
   audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.mp3'
+  audio_file_name = os.path.join('downloads', audio_file_name)
   await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
   #cli = soundex.VideoFileClip(dl)
   #cli.audio.write_audiofile(audio_file_name)
