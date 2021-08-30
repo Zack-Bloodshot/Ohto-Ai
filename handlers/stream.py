@@ -15,6 +15,7 @@ from helpers.decorators import authorized_users_only
 from helpers.decorators import authorized_users_only2
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 import moviepy.editor as soundex
+import asyncio
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 @errors
@@ -26,8 +27,9 @@ async def stream_vid(client: Client, message: Message):
   if not (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
-  audio_file_name = str(dl).split('.', 1)[0]
-  sound_clip = converter.convert(await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}.wav",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE))
+  audio_file_name = str(dl).split('.', 1)[0] + '.wav'
+  await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+  sound_clip = await converter.convert(audio_file_name)
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
