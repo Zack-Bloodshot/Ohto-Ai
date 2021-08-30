@@ -17,6 +17,7 @@ from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID
 import moviepy.editor as soundex
 import asyncio
 import os
+import subprocess
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
@@ -28,10 +29,10 @@ async def stream_vid(client: Client, message: Message):
     return await message.reply_text('Not a valid format...')
   m = await message.reply_text('Downloading....')
   dl = await message.reply_to_message.download()
-  audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.acc'
+  audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.wav'
   audio_file_name = os.path.join('downloads', audio_file_name)
   await m.edit('Processing audio....')
-  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -vn -codec copy {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44100 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
   await proc.communicate()
   #cli = soundex.VideoFileClip(dl)
   #cli.audio.write_audiofile(audio_file_name)
