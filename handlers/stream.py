@@ -29,7 +29,8 @@ async def stream_vid(client: Client, message: Message):
   dl = await message.reply_to_message.download()
   audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.mp3'
   audio_file_name = os.path.join('downloads', audio_file_name)
-  await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+  await proc.communicate()
   #cli = soundex.VideoFileClip(dl)
   #cli.audio.write_audiofile(audio_file_name)
   sound_clip = await converter.convert(audio_file_name)
