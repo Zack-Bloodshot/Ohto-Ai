@@ -28,14 +28,14 @@ async def stream_vid(client: Client, message: Message):
     return await message.reply_text('Not a valid format...')
   m = await message.reply_text('Downloading....')
   dl = await message.reply_to_message.download()
-  audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.wav'
+  audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.acc'
   audio_file_name = os.path.join('downloads', audio_file_name)
   await m.edit('Processing audio....')
-  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -codec:a pcm_s16le -ac 1 {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -vn -codec copy {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
   await proc.communicate()
   #cli = soundex.VideoFileClip(dl)
   #cli.audio.write_audiofile(audio_file_name)
-  sound_clip = await converter.convert(audio_file_name, dell=False)
+  sound_clip = await converter.convert(audio_file_name)
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
@@ -47,5 +47,5 @@ async def stream_vid(client: Client, message: Message):
   await group_call.set_video_capture(dl)
   group_call.input_filename = sound_clip
   await m.delete()
-  await m.edit(f'Streaming {video.file_name}...')
+  await message.reply_text(f'Streaming {video.file_name}...')
   block_chat.append(message.chat.id)
