@@ -35,7 +35,7 @@ async def stream_vid(client: Client, message: Message):
   await proc.communicate()
   #cli = soundex.VideoFileClip(dl)
   #cli.audio.write_audiofile(audio_file_name)
-  sound_clip = await converter.convert(audio_file_name)
+  sound_clip = await converter.convert(audio_file_name, dell=False)
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
