@@ -3,7 +3,7 @@ import asyncio
 import ffmpeg
 
 
-async def convert(file_path: str) -> str:
+async def convert(file_path: str, dell=True) -> str:
     out = os.path.basename(file_path)
     out = out.split(".")
     out[-1] = "raw"
@@ -32,5 +32,6 @@ async def convert(file_path: str) -> str:
         stderr=asyncio.subprocess.PIPE
     )
     await proc.communicate()
-    os.remove(file_path)
+    if dell=True:
+      os.remove(file_path)
     return out
