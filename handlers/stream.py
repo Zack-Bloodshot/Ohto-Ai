@@ -27,7 +27,7 @@ async def stream_vid(client: Client, message: Message):
   if not (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
-  audio_file_name = str(dl).split('.', 1)[0] + '.wav'
+  audio_file_name = str(dl).split('.', 1)[0].replace(' ', '_') + '.mp3'
   await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
   sound_clip = await converter.convert(audio_file_name)
   try:
