@@ -171,6 +171,10 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
+    if message.chat.id in block_chat:
+      await mp.leave(message.chat.id)
+      block_chat.pop(message.chat.id)
+      return await message.reply_text('Stopped streaming....')
     if not sql.is_call(message.chat.id):
         await message.reply_text("Nuthin Streamin'....... ig so.. ", parse_mode = "md")
     else:
@@ -178,10 +182,6 @@ async def stop(_, message: Message):
           callsmusic.queues.clear(message.chat.id)
         except QueueEmpty: 
           pass 
-        try:
-          block_chat.pop(message.chat.id)
-        except Exception:
-          pass
         quu[message.chat.id] = []
         await mp.leave(message.chat.id)
         sql.set_off(message.chat.id)
