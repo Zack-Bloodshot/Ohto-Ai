@@ -32,6 +32,6 @@ async def convert(file_path: str, dell=True) -> str:
         stderr=asyncio.subprocess.PIPE
     )
     await proc.communicate()
-    if dell=True:
+    if dell==True:
       os.remove(file_path)
     return out
