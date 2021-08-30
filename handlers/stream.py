@@ -27,13 +27,13 @@ async def stream_vid(client: Client, message: Message):
   if not (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
     return await message.reply_text('Not a valid format...')
   dl = await message.reply_to_message.download()
-  audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.mp3'
+  audio_file_name = str(video.file_name).split('.', 1)[0].replace(' ', '_') + '.wav'
   audio_file_name = os.path.join('downloads', audio_file_name)
-  #proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44000 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
-  #await proc.communicate()
+  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -codec:a pcm_s16le -ac 1 {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
+  await proc.communicate()
   #cli = soundex.VideoFileClip(dl)
   #cli.audio.write_audiofile(audio_file_name)
-  sound_clip = await converter.convert(dl, dell=False)
+  sound_clip = await converter.convert(audio_file_name)
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
