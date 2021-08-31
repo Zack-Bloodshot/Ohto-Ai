@@ -15,14 +15,14 @@ from config import START_PIC as sp
 @Client.on_message(command("start") & other_filters2)
 async def start(_, message: Message):
     await message.reply_text(
-        f'I am **{bn}** !! I can play music for you in your voice chat!!, send /help for command list...\n[....]({sp})', parse_mode = "markdown", 
+        f'I am @mikey_op4_bot !! I can play music for you in your voice chat!!, send /help for command list...\n[....]({sp})', parse_mode = "markdown", 
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "Deploy me", url="https://heroku.com/deploy?template=https://github.com/Zack-Bloodshot/Ohto-Ai"
+                        "Our Network", url="https://t.me/Demons_net"
                     )],[
-                    InlineKeyboardButton(text = "Creator", url = "https://t.me/DontKnowWhyRU"), InlineKeyboardButton(text = "Repo", url = "https://github.com/Zack-Bloodshot/Ohto-Ai")]
+                    InlineKeyboardButton(text = "Creator", url = "https://t.me/NINE_EVIL"), InlineKeyboardButton(text = "Support", url = "https://t.me/NINE_EVIL")]
             ]
         )
     )
