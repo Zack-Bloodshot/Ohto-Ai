@@ -22,7 +22,7 @@ async def start(_, message: Message):
                     InlineKeyboardButton(
                         "Our Network", url="https://t.me/Demons_net"
                     )],[
-                    InlineKeyboardButton(text = "Creator", url = "https://t.me/NINE_EVIL"), InlineKeyboardButton(text = "Support", url = "https://t.me/NINE_EVIL")]
+                    InlineKeyboardButton(text = "Creator", url = "https://t.me/NINE_EVIL"), InlineKeyboardButton(text = "Support", url = "https://t.me/devil_bots")]
             ]
         )
     )
