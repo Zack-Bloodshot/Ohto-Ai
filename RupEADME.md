@@ -45,7 +45,7 @@ I recommend deploying on railways, because it lags relatively less than heroku (
 
 ### Deploy to Heroku: 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Zack-Bloodshot/Ohto-Ai)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Ninematsuno/Ohto-Ai)
 
 ---
 
