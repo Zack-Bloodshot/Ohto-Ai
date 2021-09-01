@@ -98,5 +98,5 @@ async def stream_vid(client: Client, message: Message):
       return await message.reply_text(f'{type(e).__name__}: {e}')
   await group_call.set_video_capture(video)
   await m.delete()
-  await message.reply_text(f'streaming...)
+  await message.reply_text(f'streaming...')
   
