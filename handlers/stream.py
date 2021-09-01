@@ -53,7 +53,6 @@ async def stream_vid(client: Client, message: Message):
   block_chat.append(message.chat.id)
   
 @Client.on_message(filters.command(["loopstream", f"loopstream@{BOT_USERNAME}"]) & other_filters)
-@authorized_users_only
 async def stream_vid(client: Client, message: Message):
   if message.chat.id in block_chat:
     m = await message.reply_text('Please stop present stream to start new....')
@@ -79,4 +78,25 @@ async def stream_vid(client: Client, message: Message):
   await m.delete()
   await message.reply_text(f'On loop!')
   
+@Client.on_message(filters.command(["livestream", f"livestream@{BOT_USERNAME}"]) & other_filters)
+@authorized_users_only
+async def stream_vid(client: Client, message: Message):
+  if message.chat.id in block_chat:
+    m = await message.reply_text('Please stop present stream to start new....')
+    asyncio.sleep(3)
+    return await m.delete()
+  video = message.text[11:]
+  if not video.endswith('m3u8'):
+    return await message.reply_text('supports m3u8 urls...')
+  try:
+      group_call = await mp.call(message.chat.id)
+  except RuntimeError:
+      return await message.reply_text('The vc seems to be off.....')
+  except ChannelInvalid:
+      return await message.reply_text('Seems like my assistant is not in the chat!')
+  except Exception as e:
+      return await message.reply_text(f'{type(e).__name__}: {e}')
+  await group_call.set_video_capture(video)
+  await m.delete()
+  await message.reply_text(f'streaming...)
   
