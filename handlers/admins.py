@@ -63,10 +63,8 @@ async def res(_, message: Message):
     await mp.leave(message.chat.id)
   except Exception:
     pass
-  try:
-    block_chat.pop(message.chat.id)
-  except Exception:
-    pass
+  if message.chat.id in block_chat:
+    block_chat.remove(message.chat.id)
   await message.reply("**Reset successful..!!!**")
 
 @Client.on_message(filters.command(["auth", f"auth@{BOT_USERNAME}"]) & other_filters)
@@ -173,7 +171,7 @@ async def resume(_, message: Message):
 async def stop(_, message: Message):
     if message.chat.id in block_chat:
       await mp.leave(message.chat.id)
-      block_chat.pop(message.chat.id)
+      block_chat.remove(message.chat.id)
       return await message.reply_text('Stopped streaming....')
     if not sql.is_call(message.chat.id):
         await message.reply_text("Nuthin Streamin'....... ig so.. ", parse_mode = "md")
