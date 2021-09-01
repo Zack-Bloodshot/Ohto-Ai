@@ -18,7 +18,6 @@ import asyncio
 import os
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
-@authorized_users_only
 async def stream_vid(client: Client, message: Message):
   if message.chat.id in block_chat:
     m = await message.reply_text('Please stop present stream to start new....')
@@ -52,3 +51,32 @@ async def stream_vid(client: Client, message: Message):
   await m.delete()
   await message.reply_text(f'Streaming {video.file_name}...')
   block_chat.append(message.chat.id)
+  
+@Client.on_message(filters.command(["loopstream", f"loopstream@{BOT_USERNAME}"]) & other_filters)
+@authorized_users_only
+async def stream_vid(client: Client, message: Message):
+  if message.chat.id in block_chat:
+    m = await message.reply_text('Please stop present stream to start new....')
+    asyncio.sleep(3)
+    return await m.delete()
+  video = (message.reply_to_message.video or message.reply_to_message.document) if message.reply_to_message else None
+  if not video:
+    return await message.reply_text('Reply to a file or a video....')
+  if not (video.file_name.endswith('.mkv') or video.file_name.endswith('.mp4')):
+    return await message.reply_text('Not a valid format...')
+  m = await message.reply_text('Downloading....will take time depending on video size...')
+  file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
+  dl = await message.reply_to_message.download(file_name)
+  try:
+      group_call = await mp.call(message.chat.id)
+  except RuntimeError:
+      return await message.reply_text('The vc seems to be off.....')
+  except ChannelInvalid:
+      return await message.reply_text('Seems like my assistant is not in the chat!')
+  except Exception as e:
+      return await message.reply_text(f'{type(e).__name__}: {e}')
+  await group_call.set_video_capture(dl)
+  await m.delete()
+  await message.reply_text(f'On loop!')
+  
+  
