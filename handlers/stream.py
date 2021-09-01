@@ -85,7 +85,10 @@ async def stream_vid(client: Client, message: Message):
     m = await message.reply_text('Please stop present stream to start new....')
     asyncio.sleep(3)
     return await m.delete()
-  video = message.text[11:]
+  try:
+    video = message.text.split(' ', 1)[1]
+  except IndexError:
+    return await message.reply_text('provide url..in message..')
   if not video.endswith('m3u8'):
     return await message.reply_text('supports m3u8 urls...')
   try:
