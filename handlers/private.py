@@ -20,9 +20,9 @@ async def start(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "Deploy me", url="https://heroku.com/deploy?template=https://github.com/Zack-Bloodshot/Ohto-Ai"
+                        "Commands", url="https://telegra.ph/Commands-09-01"
                     )],[
-                    InlineKeyboardButton(text = "Creator", url = "https://t.me/DontKnowWhyRU"), InlineKeyboardButton(text = "Repo", url = "https://github.com/Zack-Bloodshot/Ohto-Ai")]
+                    InlineKeyboardButton(text = "Creator", url = "https://t.me/NINE_EVIL"), InlineKeyboardButton(text = "SUPPORT", url = "https://t.me/mikey_player_support")]
             ]
         )
     )
