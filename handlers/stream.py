@@ -89,8 +89,6 @@ async def stream_vid(client: Client, message: Message):
     video = message.text.split(' ', 1)[1]
   except IndexError:
     return await message.reply_text('provide url..in message..')
-  if not video.endswith('m3u8'):
-    return await message.reply_text('supports m3u8 urls...')
   try:
       group_call = await mp.call(message.chat.id)
   except RuntimeError:
@@ -100,6 +98,5 @@ async def stream_vid(client: Client, message: Message):
   except Exception as e:
       return await message.reply_text(f'{type(e).__name__}: {e}')
   await group_call.set_video_capture(video)
-  await m.delete()
-  await message.reply_text(f'streaming...')
+  await message.reply_text(f'Cross fingers and check vc!')
   
