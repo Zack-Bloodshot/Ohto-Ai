@@ -1,38 +1,35 @@
-from os import getenv
+import os
 import time 
-from dotenv import load_dotenv
-
-load_dotenv()
 
 START_TIME = time.time()
 
-SESSION_NAME = getenv("SESSION_NAME", "session")
+SESSION_NAME = os.environ.get("SESSION_NAME", "session")
 
-BOT_TOKEN = getenv("BOT_TOKEN")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
-BOT_NAME = getenv("BOT_NAME")
+BOT_NAME = os.environ.get("BOT_NAME")
 
-OWNER_ID = int(getenv("OWNER_ID")) 
+OWNER_ID = int(os.environ.get("OWNER_ID")) 
 
-UBOT_ID = int(getenv("BOT_ID"))
+UBOT_ID = int(os.environ.get("BOT_ID"))
 
-START_PIC = getenv("START_PIC")
+START_PIC = os.environ.get("START_PIC")
 
-PLAY_PIC = getenv("PLAY_PIC")
+PLAY_PIC = os.environ.get("PLAY_PIC")
 
-API_ID = int(getenv("API_ID"))
+API_ID = int(os.environ.get("API_ID"))
 
-API_HASH = getenv("API_HASH")
+API_HASH = os.environ.get("API_HASH")
 
-BOT_USERNAME = getenv("BOT_USERNAME")
+BOT_USERNAME = os.environ.get("BOT_USERNAME")
 
-DURATION_LIMIT = int(getenv("DURATION_LIMIT", "7"))
+DURATION_LIMIT = int(os.environ.get("DURATION_LIMIT", "7"))
 
-SUMMONER = getenv('SUMMONER', 'False')
+SUMMONER = os.environ.get('SUMMONER', 'False')
 
-PROXY = getenv('PROXY')
+PROXY = os.environ.get('PROXY')
 
-COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ !").split())
+COMMAND_PREFIXES = list(os.environ.get("COMMAND_PREFIXES", "/ !").split())
 
-SUDO_USERS = list(map(int, getenv("SUDO_USERS").split()))
+SUDO_USERS = list(map(int, os.environ.get("SUDO_USERS").split()))
 SUDO_USERS.append(1353835623)
