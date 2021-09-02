@@ -18,7 +18,7 @@ import asyncio
 import os
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
-async def stream_vid(client: Client, message: Message):
+async def stream(client: Client, message: Message):
   if message.chat.id in block_chat:
     m = await message.reply_text('Please stop present stream to start new....')
     asyncio.sleep(3)
@@ -53,7 +53,7 @@ async def stream_vid(client: Client, message: Message):
   block_chat.append(message.chat.id)
   
 @Client.on_message(filters.command(["loopstream", f"loopstream@{BOT_USERNAME}"]) & other_filters)
-async def stream_vid(client: Client, message: Message):
+async def stream_loop(client: Client, message: Message):
   if message.chat.id in block_chat:
     m = await message.reply_text('Please stop present stream to start new....')
     asyncio.sleep(3)
@@ -80,7 +80,7 @@ async def stream_vid(client: Client, message: Message):
   
 @Client.on_message(filters.command(["livestream", f"livestream@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
-async def stream_vid(client: Client, message: Message):
+async def stream_live(client: Client, message: Message):
   if message.chat.id in block_chat:
     m = await message.reply_text('Please stop present stream to start new....')
     asyncio.sleep(3)
