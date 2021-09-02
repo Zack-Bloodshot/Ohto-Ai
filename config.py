@@ -1,4 +1,4 @@
-import os
+from os import getenv
 import time 
 from dotenv import load_dotenv
 
