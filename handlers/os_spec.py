@@ -1,0 +1,16 @@
+from pyrogram import Client, filters
+from pyrogram.types import Message
+import config
+import subprocess
+
+@Client.on_message(filters.command(["neofetch", f"neofetch@{BOT_USERNAME}"]) & other_filters)
+async def neo_fetcher(_, mmessage: Message):
+  if message.from_user.id != config.OWNER_ID:
+    return 
+  process = subprocess.Popen(
+                'neofetch',
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+  out = process.stdout.read()[:-1].decode("utf-8")
+  await message.reply_text(f'`{out}`')
