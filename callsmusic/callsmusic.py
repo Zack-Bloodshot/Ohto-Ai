@@ -12,6 +12,7 @@ client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 quu = {} 
 block_chat = []
 GROUP_CALL = {}
+FFMPEG_PRO = {}
 
 async def on_stream_end(context, *args):
     chat_id = MAX_CHANNEL_ID - context.full_chat.id

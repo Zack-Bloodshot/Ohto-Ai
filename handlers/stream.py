@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, Voice
 from youtube_search import YoutubeSearch 
-from callsmusic import mp, quu, block_chat
+from callsmusic import mp, quu, block_chat, FFMPEG_PRO
 import callsmusic
 import converter
 from pyrogram.errors import PeerIdInvalid, ChannelInvalid
@@ -97,6 +97,19 @@ async def stream_live(client: Client, message: Message):
       return await message.reply_text('Seems like my assistant is not in the chat!')
   except Exception as e:
       return await message.reply_text(f'{type(e).__name__}: {e}')
+  input_filename = f'streamat{message.chat.id}'
+  os.mkfifo(file_unique_id)
+  group_call.input_filename = input_filename
+  process = ffmpeg.input(stream_url).output(
+    input_filename,
+    format="s16le",
+    acodec="pcm_s16le",
+    ac=2,
+    ar="48k",
+    loglevel="error",
+  ).overwrite_output().run_async()
   await group_call.set_video_capture(video)
+  FFMPEG_PRO[message.chat.id] = process
+  block_chat.append(message.chat.id)
   await message.reply_text(f'Cross fingers and check vc!')
   

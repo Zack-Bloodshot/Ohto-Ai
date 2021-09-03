@@ -4,7 +4,7 @@ from sql import calls as sql
 from pyrogram import Client, filters 
 from pyrogram.types import Message, Chat, User
 import callsmusic
-from callsmusic import mp, quu, block_chat
+from callsmusic import mp, quu, block_chat, FFMPEG_PRO
 from callsmusic import client as player
 from pyrogram.errors import PeerIdInvalid
 from pyrogram.errors import exceptions as pexc
@@ -16,6 +16,7 @@ from helpers.decorators import errors, authorized_users_only, authorized_users_o
 from config import BOT_USERNAME
 from config import PLAY_PIC, SUMMONER
 from config import UBOT_ID as ubot
+import signal
 
 def mention(name, userid):
   return f"[{name}](tg://user?id={userid})"
@@ -169,6 +170,9 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
+    if message.chat.id in FFMPEG_PRO:
+      proc = FFMPEG_PRO.get(message.chat id)
+      proc.send_signal(signal.SIGTERM)
     if message.chat.id in block_chat:
       await mp.leave(message.chat.id)
       block_chat.remove(message.chat.id)
