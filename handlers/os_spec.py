@@ -3,7 +3,7 @@ from pyrogram.types import Message
 import config
 import subprocess
 
-@Client.on_message(filters.command(["neofetch", f"neofetch@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(filters.command(["neofetch", f"neofetch@{config.BOT_USERNAME}"]) & other_filters)
 async def neo_fetcher(_, mmessage: Message):
   if message.from_user.id != config.OWNER_ID:
     return 
