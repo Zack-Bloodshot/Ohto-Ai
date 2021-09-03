@@ -16,6 +16,7 @@ from helpers.decorators import authorized_users_only2
 from config import API_ID, API_HASH, BOT_TOKEN, PLAY_PIC, BOT_USERNAME, OWNER_ID, UBOT_ID
 import asyncio
 import os
+import ffmpeg
 
 @Client.on_message(filters.command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 async def stream(client: Client, message: Message):

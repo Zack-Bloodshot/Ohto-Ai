@@ -16,4 +16,5 @@ async def neo_fetcher(_, message: Message):
   out = process.stdout.read()[:-1].decode("utf-8")
   f = open('neofetch.txt', 'w')
   f.write(out)
+  f.close()
   await message.reply_document(document='neofetch.txt')
