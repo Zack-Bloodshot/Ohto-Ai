@@ -101,7 +101,7 @@ async def stream_live(client: Client, message: Message):
   input_filename = f'streamat{message.chat.id}'
   os.mkfifo(input_filename)
   group_call.input_filename = input_filename
-  process = ffmpeg.input(stream_url).output(
+  process = ffmpeg.input(video).output(
     input_filename,
     format="s16le",
     acodec="pcm_s16le",
