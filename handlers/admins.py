@@ -171,7 +171,7 @@ async def resume(_, message: Message):
 @authorized_users_only
 async def stop(_, message: Message):
     if message.chat.id in FFMPEG_PRO:
-      proc = FFMPEG_PRO.get(message.chat id)
+      proc = FFMPEG_PRO.get(message.chat.id)
       proc.send_signal(signal.SIGTERM)
     if message.chat.id in block_chat:
       await mp.leave(message.chat.id)
