@@ -98,7 +98,7 @@ async def stream_live(client: Client, message: Message):
   except Exception as e:
       return await message.reply_text(f'{type(e).__name__}: {e}')
   input_filename = f'streamat{message.chat.id}'
-  os.mkfifo(file_unique_id)
+  os.mkfifo(input_filename)
   group_call.input_filename = input_filename
   process = ffmpeg.input(stream_url).output(
     input_filename,
