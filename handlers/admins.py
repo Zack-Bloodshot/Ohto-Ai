@@ -174,7 +174,7 @@ async def stop(_, message: Message):
       proc = FFMPEG_PRO.get(message.chat.id)
       proc.send_signal(signal.SIGTERM)
       try:
-        os.remove(f'streamat{message.chat.id')
+        os.remove(f'streamat{message.chat.id}')
       except Exception:
         pass
     if message.chat.id in block_chat:
