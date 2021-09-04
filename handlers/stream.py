@@ -33,7 +33,7 @@ async def stream(client: Client, message: Message):
   file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
   dl = await message.reply_to_message.download(file_name)
   try:
-      group_call = await mp.call(message.chat.id)
+      group_call = await mp.stream(message.chat.id)
   except RuntimeError:
       return await message.reply_text('The vc seems to be off.....')
   except ChannelInvalid:
@@ -60,7 +60,7 @@ async def stream_loop(client: Client, message: Message):
   file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
   dl = await message.reply_to_message.download(file_name)
   try:
-      group_call = await mp.call(message.chat.id)
+      group_call = await mp.stream(message.chat.id)
   except RuntimeError:
       return await message.reply_text('The vc seems to be off.....')
   except ChannelInvalid:
@@ -83,7 +83,7 @@ async def stream_live(client: Client, message: Message):
   except IndexError:
     return await message.reply_text('provide url..in message..')
   try:
-      group_call = await mp.call(message.chat.id)
+      group_call = await mp.stream(message.chat.id)
   except RuntimeError:
       return await message.reply_text('The vc seems to be off.....')
   except ChannelInvalid:

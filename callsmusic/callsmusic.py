@@ -51,6 +51,16 @@ class Music(object):
       crazy(chat_id)
       return gp
   
+  async def stream(self, chat_id):
+    if chat_id in GROUP_CALL:
+      return GROUP_CALL[chat_id]
+    else:
+      gp = GroupCallFactory(client,outgoing_audio_bitrate_kbit=320).get_group_call()
+      await gp.join(chat_id)
+      GROUP_CALL[chat_id] = gp
+      crazy(chat_id)
+      return gp
+  
   async def leave(self, chat_id):
     if chat_id in GROUP_CALL:
       group_call = GROUP_CALL[chat_id]
