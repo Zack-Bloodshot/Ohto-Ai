@@ -13,7 +13,7 @@ async def neo_fetcher(_, message: Message):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-  out = process.stdout.read()[:-1].decode("UTF-8")
+  out = process.stdout.read()[:-1].decode("utf-8")
   f = open('neofetch.txt', 'w')
   f.write(out)
   f.close()
