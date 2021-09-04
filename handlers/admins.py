@@ -173,6 +173,10 @@ async def stop(_, message: Message):
     if message.chat.id in FFMPEG_PRO:
       proc = FFMPEG_PRO.get(message.chat.id)
       proc.send_signal(signal.SIGTERM)
+      try:
+        os.remove(f'streamat{message.chat.id')
+      except Exception:
+        pass
     if message.chat.id in block_chat:
       await mp.leave(message.chat.id)
       block_chat.remove(message.chat.id)
