@@ -22,7 +22,7 @@ import ffmpeg
 async def stream(client: Client, message: Message):
   if message.chat.id in block_chat:
     m = await message.reply_text('Please stop present stream to start new....')
-    asyncio.sleep(3)
+    await asyncio.sleep(3)
     return await m.delete()
   video = (message.reply_to_message.video or message.reply_to_message.document) if message.reply_to_message else None
   if not video:
@@ -32,23 +32,9 @@ async def stream(client: Client, message: Message):
   m = await message.reply_text('Downloading....will take time depending on video size...')
   file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
   dl = await message.reply_to_message.download(file_name)
-  audio_file_name = str(dl).split('.', 1)[0].replace(' ', '_') + '.wav'
-  await m.edit('Processing audio....')
-  proc = await asyncio.create_subprocess_shell(f"ffmpeg -i {str(dl)} -ab 160k -ac 2 -ar 44100 -vn {audio_file_name}",asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
-  await proc.communicate()
-  #cli = soundex.VideoFileClip(dl)
-  #cli.audio.write_audiofile(audio_file_name)
-  sound_clip = await converter.convert(audio_file_name)
-  try:
-      group_call = await mp.call(message.chat.id)
-  except RuntimeError:
-      return await message.reply_text('The vc seems to be off.....')
-  except ChannelInvalid:
-      return await message.reply_text('Seems like my assistant is not in the chat!')
-  except Exception as e:
-      return await message.reply_text(f'{type(e).__name__}: {e}')
-  await group_call.set_video_capture(dl)
-  group_call.input_filename = sound_clip
+  await m.edit('Joining....')
+  group_call = await mp.stream(message.chat.id)
+  await group_call.start_video(dl)
   await m.delete()
   await message.reply_text(f'Streaming {video.file_name}...')
   block_chat.append(message.chat.id)
@@ -67,15 +53,7 @@ async def stream_loop(client: Client, message: Message):
   m = await message.reply_text('Downloading....will take time depending on video size...')
   file_name = f'{video.file_unique_id}.{video.file_name.split(".", 1)[-1]}'
   dl = await message.reply_to_message.download(file_name)
-  try:
-      group_call = await mp.call(message.chat.id)
-  except RuntimeError:
-      return await message.reply_text('The vc seems to be off.....')
-  except ChannelInvalid:
-      return await message.reply_text('Seems like my assistant is not in the chat!')
-  except Exception as e:
-      return await message.reply_text(f'{type(e).__name__}: {e}')
-  await group_call.set_video_capture(dl)
+  
   await m.delete()
   await message.reply_text(f'On loop!')
   
