@@ -70,7 +70,7 @@ mp = Music()
 
 @client.on_message(filters.private)
 async def annoy(client, message):
-  await message.delete()
+  #await message.delete()
   await message.reply_text(f'Baka Im jst a bot,  used to play music, for more check @{config.BOT_USERNAME}!')
   
 
